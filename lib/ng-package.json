@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../dist/@guru",
+  "lib": {
+    "entryFile": "public-api.ts",
+    "umdModuleIds" :{
+      "@ngneat/until-destroy" : "@ngneat/until-destroy",
+      "perfect-scrollbar" : "perfect-scrollbar",
+      "lodash" : "lodash"
+    }
+  }
+}

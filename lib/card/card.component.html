@@ -1,0 +1,69 @@
+<ng-template #header>
+  <ng-content select="guru-header"></ng-content>
+</ng-template>
+<ng-template #content>
+  <ng-content select="guru-content"></ng-content>
+</ng-template>
+<ng-template #footer>
+  <ng-content select="guru-footer"></ng-content>
+</ng-template>
+<ng-template #sidebarLeft>
+  <ng-content select="guru-sidebar-left"></ng-content>
+</ng-template>
+<ng-template #sidebarRight>
+  <ng-content select="guru-sidebar-right"></ng-content>
+</ng-template>
+
+<ng-container #vcAboveHeader></ng-container>
+<!--! When left & right sidebar present -->
+<ng-container *ngIf="cardMode === 'left-right-with-card'">
+  <mat-sidenav-container autosize>
+    <mat-sidenav position="start" [style.width]="guruSidebarLeft?.width" #matNavLeft>
+      <ng-container *ngTemplateOutlet="sidebarLeft"></ng-container>
+    </mat-sidenav>
+    <mat-sidenav-content #MatContent class="container-guru">
+      <ng-container #vcFixedHeader></ng-container>
+      <ng-container #vcContent></ng-container>
+      <ng-container #vcFixedFooter></ng-container>
+    </mat-sidenav-content>
+    <mat-sidenav position="end" [style.width]="guruSidebarRight?.width" #matNavRight>
+      <ng-container *ngTemplateOutlet="sidebarRight"></ng-container>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</ng-container>
+
+<!--! When left sidebar present -->
+<ng-container *ngIf="cardMode === 'left-with-card'">
+  <mat-sidenav-container autosize>
+    <mat-sidenav position="start" [style.width]="guruSidebarLeft?.width" #matNavLeft>
+      <ng-container *ngTemplateOutlet="sidebarLeft"></ng-container>
+    </mat-sidenav>
+    <mat-sidenav-content #MatContent class="container-guru">
+      <ng-container #vcFixedHeader></ng-container>
+      <ng-container #vcContent></ng-container>
+      <ng-container #vcFixedFooter></ng-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+<!--! When right sidebar present -->
+<ng-container *ngIf="cardMode === 'right-with-card'">
+  <mat-sidenav-container autosize>
+    <mat-sidenav-content #MatContent class="container-guru">
+      <ng-container #vcFixedHeader></ng-container>
+      <ng-container #vcContent></ng-container>
+      <ng-container #vcFixedFooter></ng-container>
+    </mat-sidenav-content>
+    <mat-sidenav position="end" [style.width]="guruSidebarRight?.width" #matNavRight>
+      <ng-container *ngTemplateOutlet="sidebarRight"></ng-container>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</ng-container>
+
+<!--! When sidebar present -->
+<ng-container *ngIf="cardMode === 'card'">
+  <ng-container #vcFixedHeader></ng-container>
+  <ng-container #vcContent></ng-container>
+  <ng-container #vcFixedFooter></ng-container>
+</ng-container>
+<ng-container #vcAboveFooter></ng-container>
