@@ -22,8 +22,8 @@ import { GuruContentScrollComponent } from './content-scroll.component';
 export class GuruContentComponent extends GuruContentScrollComponent implements AfterContentInit, AfterViewInit {
   @HostBinding('class.guru-content-wrapper')
   private GuruContentWrapper = true;
+  @HostBinding('class.scrollable')
   @Input() enableScroller = true;
-  @HostBinding('class.scrollable') private get _enableScroller(): boolean { return this.enableScroller; }
   @ViewChild('vcStaticHeader', { read: ViewContainerRef }) public vcStaticHeader!: ViewContainerRef;
   @ViewChild('vcStaticFooter', { read: ViewContainerRef }) public vcStaticFooter!: ViewContainerRef;
 
