@@ -87,13 +87,13 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
             CardHelper.removeContainer(this.guruContent.vcStaticHeader);
             // ! 4. Add View To Corresponding Header Container
             switch (position) {
-              case 'above':
+              case 'above-fixed':
                 CardHelper.addContainer(this.vcAboveHeader, this.tmplHeader);
                 break;
-              case 'fixed':
+              case 'bellow-fixed':
                 CardHelper.addContainer(this.vcFixedHeader, this.tmplHeader);
                 break;
-              case 'static':
+              case 'bellow-static':
                 CardHelper.addContainer(this.guruContent.vcStaticHeader, this.tmplHeader);
                 break;
             }
@@ -116,13 +116,13 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
             CardHelper.removeContainer(this.guruContent.vcStaticFooter);
             // ! 4. Create View From Footer Template
             switch (position) {
-              case 'above':
+              case 'above-fixed':
                 CardHelper.addContainer(this.vcAboveFooter, this.tmplFooter);
                 break;
-              case 'fixed':
+              case 'bellow-fixed':
                 CardHelper.addContainer(this.vcFixedFooter, this.tmplFooter);
                 break;
-              case 'static':
+              case 'bellow-static':
                 CardHelper.addContainer(this.guruContent.vcStaticFooter, this.tmplFooter);
                 break;
             }

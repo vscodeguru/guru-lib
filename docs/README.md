@@ -1,27 +1,53 @@
-# GuruPlugins
+# Guru Plugin
+It's a **Angular Admin Panel UI Kit** consisting of multiple base components and utilities to enhance [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd")
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Why Guru Plugin
 
-## Code scaffolding
+If you have decided to use an **admin template** for creating the back-end of your website and don't want to spend money then **Guru Plugin** is good choice to build admin panel on your own with minimal angular knowledge.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Ready made admin template** is **bundled with large size of assets** and different **ready to use app's** which are all **not used in real time** but it occupy a major size in application production bundle.
 
-## Build
+This Kind of ready made **admin template not compatible with angular UI Kits** Like [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd"). So we have to **customize both admin template and UI Kits** even you are using admin template. So Guru Plugin comes with minimal bundle using [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd") UI Kits to overcome this issues by doing some minimal customization.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Available Plugins
 
-## Running end-to-end tests
+**1. Guru Card** 
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+It's an extensive card plugin to create admin layout with minimal angular knowledge, bellow images are show what kind of layouts you can create using this plugin.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+​	**Layout 1**
+
+​		header position => above | footer position => above to the sidebar&content
+
+​		<img src=".\screenshots\Type-1.PNG" alt="Type-1" style="zoom: 50%;" />
+
+
+
+​	**Layout 2**
+
+​		header position => above | footer position => bellow  to the sidebar&content
+
+​		<img src=".\screenshots\Type-2.PNG" style="zoom:50%;" />
+
+
+
+**Layout 3**
+
+​		header position => bellow | footer position => above to the sidebar&content
+
+​		<img src=".\screenshots\Type-3.PNG" style="zoom:50%;" />
+
+
+
+**Layout 4**
+
+​		header position => bellow | footer position => bellow to the sidebar&content
+
+​		<img src=".\screenshots\Type-4.PNG" style="zoom:50%;" />
+
