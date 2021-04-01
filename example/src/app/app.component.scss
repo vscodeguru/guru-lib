@@ -36,3 +36,15 @@ select {
   width: 100px;
   padding: 0 5px;
 }
+
+.mat-drawer-side.mat-drawer-end,
+.mat-drawer-side {
+  border: unset !important;
+}
+mat-sidenav-content {
+  border-left: 1px solid #c9c9c9;
+  border-right: 1px solid #c9c9c9;
+}
+guru-card {
+  border-bottom: 1px solid #c9c9c9;
+}
