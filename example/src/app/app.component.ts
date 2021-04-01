@@ -9,8 +9,8 @@ import { GuruHeaderFooterPosition, GuruSidebarLeftComponent } from '@guru/lib/ca
 })
 export class AppComponent {
   mlOptions: ICardOption = {
-    HeaderPosition: 'fixed',
-    FooterPosition: 'fixed'
+    HeaderPosition: 'bellow-fixed',
+    FooterPosition: 'bellow-fixed'
   };
 }
 

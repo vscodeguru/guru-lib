@@ -1,6 +1,6 @@
 import { TemplateRef, ViewContainerRef } from '@angular/core';
 
-export declare type GuruHeaderFooterPosition = 'fixed' | 'static' | 'above';
+export declare type GuruHeaderFooterPosition = 'above-fixed' | 'bellow-fixed' | 'bellow-static';
 export declare type GuruSidebarPosition = 'start' | 'end';
 export declare type GuruSidebarAction = 'open' | 'close' | 'toggle';
 export declare type GuruSidebarMode = 'over' | 'push' | 'side';
