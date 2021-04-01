@@ -49,5 +49,5 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 
 ​		header position => bellow | footer position => bellow to the sidebar&content
 
-​		<img src=".\docs\screenshots\type-4.jpg" style="zoom:50%;" />
+​		<img src=".\docs\screenshots\type-4.JPG" style="zoom:50%;" />
 
