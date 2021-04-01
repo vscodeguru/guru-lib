@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { GuruCardModule } from '@guru/lib/card';
 import { SelectModule } from '@guru/lib/select';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     GuruCardModule,
     SelectModule
   ],
