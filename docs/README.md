@@ -21,7 +21,7 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 
 |                            TYPE-1                            |                            TYPE-2                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="D:\GURU\Portfolio\admin-guru-v3\guru-plugins\docs\screenshots\Type-1.PNG" alt="Type-1" style="zoom: 30%;" /> | <img src="D:\GURU\Portfolio\admin-guru-v3\guru-plugins\docs\screenshots\Type-2.PNG" style="zoom:30%;" /> |
+| <img src="./creenshots/Type-1.PNG" alt="Type-1" style="zoom: 30%;" /> | <img src="D:\GURU\Portfolio\admin-guru-v3\guru-plugins\docs\screenshots\Type-2.PNG" style="zoom:30%;" /> |
 
 |                            TYPE-3                            |                            TYPE-4                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
