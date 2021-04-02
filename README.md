@@ -1,7 +1,10 @@
+---
+typora-root-url: ./
+---
+
 # Guru Plugin
+
 It's a **Angular Admin Panel UI Kit** consisting of multiple base components and utilities to enhance [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd")
-
-
 
 ## Why Guru Plugin
 
@@ -11,39 +14,32 @@ If you have decided to use an **admin template** for creating the back-end of yo
 
 This Kind of ready made **admin template not compatible with angular UI Kits** Like [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd"). So we have to **customize both admin template and UI Kits** even you are using admin template. So Guru Plugin comes with minimal bundle using [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd") UI Kits to overcome this issues by doing some minimal customization.
 
-
-
 ## Available Plugins
 
-#### **1. Guru Card** 
+#### **1. Guru Card**
 
 It's an extensive card plugin to create admin layout with minimal angular knowledge, bellow images are show what kind of layouts you can create using this plugin.
 
-
-
 #### Layout 1
 
-​	**header position => above** | **footer position => above** to the sidebar&content
-<img src=".\docs\screenshots\Type-1.JPG" style="zoom:50%;" />
+**header position => above** | **footer position => above** to the sidebar&content
 
-
+![](/docs/screenshots/type-1.JPG)
 
 #### Layout 2
 
-​	**header position => above** | **footer position => bellow**  to the sidebar&content
-<img src=".\docs\screenshots\Type-2.JPG" style="zoom:50%;" />
+**header position => above** | **footer position => bellow** to the sidebar&content
 
-
+![](/docs/screenshots/type-2.JPG)
 
 #### Layout 3
 
-​	**header position => bellow** | **footer position => above** to the sidebar&content
-<img src=".\docs\screenshots\Type-3.JPG" style="zoom:50%;" />
+**header position => bellow** | **footer position => above** to the sidebar&content
 
-
+![](/docs/screenshots/type-3.JPG)
 
 #### Layout 4
 
-​	**header position => bellow** | **footer position => bellow** to the sidebar&content
-<img src=".\docs\screenshots\Type-4.JPG" style="zoom:50%;" />
+**header position => bellow** | **footer position => bellow** to the sidebar&content
 
+![](/docs/screenshots/type-4.JPG)
