@@ -1,7 +1,3 @@
----
-typora-root-url: ./
----
-
 # Guru Plugin
 
 It's a **Angular Admin Panel UI Kit** consisting of multiple base components and utilities to enhance [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd")
