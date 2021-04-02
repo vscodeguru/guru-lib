@@ -42,9 +42,15 @@ select {
   border: unset !important;
 }
 mat-sidenav-content {
-  border-left: 1px solid #c9c9c9;
-  border-right: 1px solid #c9c9c9;
+  border-left: 1px solid #908d8d;
+  border-right: 1px solid #908d8d;
+}
+guru-header {
+  border-bottom: 1px solid #908d8d !important;
+}
+guru-footer {
+  border-top: 1px solid #908d8d !important;
 }
 guru-card {
-  border-bottom: 1px solid #c9c9c9;
+  border: 1px solid #908d8d !important;
 }

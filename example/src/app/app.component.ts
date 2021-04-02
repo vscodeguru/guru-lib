@@ -8,9 +8,10 @@ import { GuruHeaderFooterPosition, GuruSidebarLeftComponent } from '@guru/lib/ca
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
+  type = 'TYPE-1';
   mlOptions: ICardOption = {
-    HeaderPosition: 'bellow-fixed',
-    FooterPosition: 'bellow-fixed'
+    HeaderPosition: 'above-fixed',
+    FooterPosition: 'above-fixed'
   };
 }
 

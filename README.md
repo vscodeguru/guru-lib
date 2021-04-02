@@ -25,7 +25,7 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 
 ​		header position => above | footer position => above to the sidebar&content
 
-​		<img src=".\docs\screenshots\Type-1.PNG" alt="Type-1" style="zoom: 50%;" />
+​		<img src=".\docs\screenshots\Type-1.JPG" alt="Type-1" style="zoom: 50%;" />
 
 
 
@@ -33,7 +33,7 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 
 ​		header position => above | footer position => bellow  to the sidebar&content
 
-​		<img src=".\docs\screenshots\Type-2.PNG" style="zoom:50%;" />
+​		<img src=".\docs\screenshots\Type-2.JPG" style="zoom:50%;" />
 
 
 
@@ -41,7 +41,7 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 
 ​		header position => bellow | footer position => above to the sidebar&content
 
-​		<img src=".\docs\screenshots\Type-3.PNG" style="zoom:50%;" />
+​		<img src=".\docs\screenshots\Type-3.JPG" style="zoom:50%;" />
 
 
 
@@ -49,5 +49,5 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 
 ​		header position => bellow | footer position => bellow to the sidebar&content
 
-​		<img src=".\docs\screenshots\type-4.jpg" style="zoom:50%;" />
+​		<img src=".\docs\screenshots\type-4.JPG" style="zoom:50%;" />
 
