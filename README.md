@@ -15,7 +15,6 @@ If you have decided to use an **admin template** for creating the back-end of yo
 This Kind of ready made **admin template not compatible with angular UI Kits** Like [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd"). So we have to **customize both admin template and UI Kits** even you are using admin template. So Guru Plugin comes with minimal bundle using [ng-zoro-antd](https://ng.ant.design/docs/introduce/en "ng-zoro-antd") UI Kits to overcome this issues by doing some minimal customization.
 
 ## Available Plugins
-
 #### **1. Guru Card**
 
 It's an extensive card plugin to create admin layout with minimal angular knowledge, below images are show what kind of layouts you can create using this plugin.
@@ -110,4 +109,3 @@ It's an extensive card plugin to create admin layout with minimal angular knowle
 | open()         | Open the sidebar.                                            | void                                                  |                              |
 | close()        | Close the sidebar.                                           | void                                                  |                              |
 | toggle()       | Toggle this sidebar.                                         | void                                                  |                              |
-
