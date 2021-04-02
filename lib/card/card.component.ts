@@ -90,10 +90,10 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
               case 'above-fixed':
                 CardHelper.addContainer(this.vcAboveHeader, this.tmplHeader);
                 break;
-              case 'bellow-fixed':
+              case 'below-fixed':
                 CardHelper.addContainer(this.vcFixedHeader, this.tmplHeader);
                 break;
-              case 'bellow-static':
+              case 'below-static':
                 CardHelper.addContainer(this.guruContent.vcStaticHeader, this.tmplHeader);
                 break;
             }
@@ -119,10 +119,10 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
               case 'above-fixed':
                 CardHelper.addContainer(this.vcAboveFooter, this.tmplFooter);
                 break;
-              case 'bellow-fixed':
+              case 'below-fixed':
                 CardHelper.addContainer(this.vcFixedFooter, this.tmplFooter);
                 break;
-              case 'bellow-static':
+              case 'below-static':
                 CardHelper.addContainer(this.guruContent.vcStaticFooter, this.tmplFooter);
                 break;
             }

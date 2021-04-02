@@ -1,10 +1,11 @@
 import { TemplateRef, ViewContainerRef } from '@angular/core';
 
-export declare type GuruHeaderFooterPosition = 'above-fixed' | 'bellow-fixed' | 'bellow-static';
+export declare type GuruHeaderFooterPosition = 'above-fixed' | 'below-fixed' | 'below-static';
 export declare type GuruSidebarPosition = 'start' | 'end';
 export declare type GuruSidebarAction = 'open' | 'close' | 'toggle';
 export declare type GuruSidebarMode = 'over' | 'push' | 'side';
 export declare type GuruSidebarToggleResult = 'open' | 'close';
+export declare type GuruBreakpointMode = { mode: GuruSidebarMode, opened: boolean };
 
 
 export class CardHelper {

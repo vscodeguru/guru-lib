@@ -1,13 +1,13 @@
 <guru-card>
-  <guru-sidebar-left>
-    <!-- <h2>Sidebar left</h2> -->
+  <guru-sidebar-left [guruSm]='{mode:"over", opened: true}'>
+    <h2>Sidebar left</h2>
   </guru-sidebar-left>
   <guru-header [position]="mlOptions.HeaderPosition">
-    <!-- <select name="ddlHeaderPosition" [(ngModel)]="mlOptions.HeaderPosition">
-      <option value="fixed">Fixed</option>
-      <option value="static">Static</option>
-      <option value="above">Above</option>
-    </select>  -->
+    <select name="ddlHeaderPosition" [(ngModel)]="mlOptions.HeaderPosition">
+      <option value="above-fixed">Above Fixed</option>
+      <option value="below-fixed">Below Fixed</option>
+      <option value="below-static">Below Static</option>
+    </select>
     <h2>{{mlOptions.HeaderPosition === 'above-fixed' ? mlOptions.HeaderPosition.toUpperCase() : 'BELOW FIXED' }} HEADER
     </h2>
   </guru-header>
@@ -15,8 +15,7 @@
     <h2>
       TYPE-4
     </h2>
-    <!-- <div id="Translation">
-
+    <div id="Translation">
       <h3>The standard Lorem Ipsum passage, used since the 1500s</h3>
       <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -106,18 +105,18 @@
           handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem
           Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
       </div><br>
-    </div> -->
+    </div>
   </guru-content>
   <guru-footer [position]="mlOptions.FooterPosition">
-    <!-- <select name="ddlHeaderPosition" [(ngModel)]="mlOptions.FooterPosition">
-      <option value="fixed">Fixed</option>
-      <option value="static">Static</option>
-      <option value="above">Above</option>
-    </select>  -->
+    <select name="ddlHeaderPosition" [(ngModel)]="mlOptions.FooterPosition">
+      <option value="above-fixed">Above Fixed</option>
+      <option value="below-fixed">Below Fixed</option>
+      <option value="below-static">Below Static</option>
+    </select>
     <h2>{{mlOptions.FooterPosition === 'above-fixed' ? mlOptions.FooterPosition.toUpperCase() : 'BELOW-FIXED' }} FOOTER
     </h2>
   </guru-footer>
-  <guru-sidebar-right>
-    <!-- <h2>Sidebar Right</h2> -->
+  <guru-sidebar-right mode='over' [guruSm]='{mode:"over", opened: false}'>
+    <h2>Sidebar Right</h2>
   </guru-sidebar-right>
 </guru-card>
