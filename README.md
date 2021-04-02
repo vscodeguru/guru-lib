@@ -20,26 +20,58 @@ This Kind of ready made **admin template not compatible with angular UI Kits** L
 
 It's an extensive card plugin to create admin layout with minimal angular knowledge, bellow images are show what kind of layouts you can create using this plugin.
 
-##### Layout 1
+##### Layout 1 : Header Above & Footer Above
 
-**header position => above** | **footer position => above** to the sidebar&content
+```html
+<guru-card>
+  <guru-sidebar-left></guru-sidebar-left>
+  <guru-header position="above-fixed"> </guru-header>
+  <guru-content> </guru-content>
+  <guru-footer position="above-fixed"> </guru-footer>
+  <guru-sidebar-right></guru-sidebar-right>
+</guru-card>
+```
 
 ![](/docs/screenshots/type-1.JPG)
 
-#### Layout 2
+##### Layout 2 : Header Above & Footer Below
 
-**header position => above** | **footer position => bellow** to the sidebar&content
+```html
+<guru-card>
+  <guru-sidebar-left></guru-sidebar-left>
+  <guru-header position="above-fixed"> </guru-header>
+  <guru-content> </guru-content>
+  <guru-footer position="below-fixed"> </guru-footer>
+  <guru-sidebar-right></guru-sidebar-right>
+</guru-card>
+```
 
 ![](/docs/screenshots/type-2.JPG)
 
-#### Layout 3
+##### Layout 3 : Header Below & Footer Above
 
-**header position => bellow** | **footer position => above** to the sidebar&content
+```html
+<guru-card>
+  <guru-sidebar-left></guru-sidebar-left>
+  <guru-header position="below-fixed"> </guru-header>
+  <guru-content> </guru-content>
+  <guru-footer position="above-fixed"> </guru-footer>
+  <guru-sidebar-right></guru-sidebar-right>
+</guru-card>
+```
 
 ![](/docs/screenshots/type-3.JPG)
 
-#### Layout 4
+##### Layout 4 : Header & Footer Below
 
-**header position => bellow** | **footer position => bellow** to the sidebar&content
+```html
+<guru-card>
+  <guru-sidebar-left></guru-sidebar-left>
+  <guru-header position="below-fixed"> </guru-header>
+  <guru-content> </guru-content>
+  <guru-footer position="below-fixed"> </guru-footer>
+  <guru-sidebar-right></guru-sidebar-right>
+</guru-card>
+```
 
 ![](/docs/screenshots/type-4.JPG)
