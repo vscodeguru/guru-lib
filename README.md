@@ -15,39 +15,38 @@ This Kind of ready made **admin template not compatible with angular UI Kits** L
 
 ## Available Plugins
 
-**1. Guru Card** 
+#### **1. Guru Card** 
 
 It's an extensive card plugin to create admin layout with minimal angular knowledge, bellow images are show what kind of layouts you can create using this plugin.
 
 
 
-​	**Layout 1**
+#### Layout 1
 
-​		header position => above | footer position => above to the sidebar&content
+​	**header position => above** | **footer position => above** to the sidebar&content
 
-​		<img src=".\docs\screenshots\Type-1.JPG" alt="Type-1" style="zoom: 50%;" />
-
-
-
-​	**Layout 2**
-
-​		header position => above | footer position => bellow  to the sidebar&content
-
-​		<img src=".\docs\screenshots\Type-2.JPG" style="zoom:50%;" />
+​	<img src=".\docs\screenshots\Type-1.JPG" alt="Type-1" style="zoom: 50%;" />
 
 
 
-**Layout 3**
+#### Layout 2
 
-​		header position => bellow | footer position => above to the sidebar&content
+​	**header position => above** | **footer position => bellow**  to the sidebar&content
 
-​		<img src=".\docs\screenshots\Type-3.JPG" style="zoom:50%;" />
+​	<img src=".\docs\screenshots\Type-2.JPG" style="zoom:50%;" />
 
 
 
-**Layout 4**
+#### Layout 3
 
-​		header position => bellow | footer position => bellow to the sidebar&content
+​	**header position => bellow** | **footer position => above** to the sidebar&content
+​	<img src=".\docs\screenshots\type-3.JPG" style="zoom:50%;" />
 
-​		<img src=".\docs\screenshots\type-4.JPG" style="zoom:50%;" />
+
+
+#### Layout 4
+
+​	**header position => bellow** | **footer position => bellow** to the sidebar&content
+
+​	<img src=".\docs\screenshots\type-4.JPG" style="zoom:50%;" />
 
