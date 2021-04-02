@@ -20,7 +20,7 @@ This Kind of ready made **admin template not compatible with angular UI Kits** L
 
 It's an extensive card plugin to create admin layout with minimal angular knowledge, bellow images are show what kind of layouts you can create using this plugin.
 
-##### Layout 1 : Header Above & Footer Above
+##### Layout 1 : Header & Footer Above
 
 ```html
 <guru-card>
