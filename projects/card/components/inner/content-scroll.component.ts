@@ -12,7 +12,7 @@ import { Platform } from '@angular/cdk/platform';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 import PerfectScrollbar from 'perfect-scrollbar';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 interface IGuruContentScrollbarOptions extends PerfectScrollbar.Options {
@@ -261,7 +261,7 @@ export class GuruContentScrollComponent implements OnInit, AfterViewInit, OnDest
    *
    */
   @HostListener('window:resize')
-  protected _updateOnResize(): void {
+  _updateOnResize(): void {
     this._debouncedUpdate();
   }
 
@@ -274,8 +274,8 @@ export class GuruContentScrollComponent implements OnInit, AfterViewInit, OnDest
    *
    *  {Event} event
    */
-  @HostListener('document:click', ['$event'])
-  protected documentClick(): void {
+  @HostListener('document:click')
+  documentClick(): void {
     if (!this.isInitialized || !this.ps) {
       return;
     }

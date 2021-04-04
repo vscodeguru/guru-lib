@@ -13,8 +13,10 @@ import {
   GuruSidebarRightComponent,
   GuruHeaderComponent,
   GuruContentComponent,
-  GuruFooterComponent
+  GuruFooterComponent,
+  GuruSidebarComponent
 } from './inner';
+import { GuruContentScrollComponent } from './inner/content-scroll.component';
 
 @NgModule({
   imports: [
@@ -24,6 +26,8 @@ import {
     FlexLayoutModule
   ],
   declarations: [
+    GuruContentScrollComponent,
+    GuruSidebarComponent,
     GuruSidebarLeftComponent,
     GuruSidebarRightComponent,
     GuruCardComponent,

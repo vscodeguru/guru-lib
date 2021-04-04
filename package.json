@@ -1,6 +1,6 @@
 {
   "name": "@guru/library",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Library Guru is an Angular Admin Panel UI Kit consisting of multiple base components and utilities to enhance ng-zoro-antd",
   "keywords": [
     "angular",
@@ -43,12 +43,14 @@
     "lint": "ng lint",
     "postinstall": "ngcc",
     "e2e": "ng e2e",
+    "*** Build ***": "",
+    "build:card": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build card --configuration=production",
     "*** Release ***": "",
     "release": "standard-version -a --no-verify",
     "release:patch": "node scripts/release.js patch",
     "release:minor": "node scripts/release.js minor",
     "release:major": "node scripts/release.js major",
-    "publish": "npm run build:cdk && npm publish ./dist/cdk"
+    "publish": "npm run build:card && npm publish ./dist/card"
   },
   "private": true,
   "dependencies": {
