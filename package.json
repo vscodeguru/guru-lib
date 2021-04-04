@@ -1,6 +1,6 @@
 {
   "name": "@guru/library",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Library Guru is an Angular Admin Panel UI Kit consisting of multiple base components and utilities to enhance ng-zoro-antd",
   "keywords": [
     "angular",
