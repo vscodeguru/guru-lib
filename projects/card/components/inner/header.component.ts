@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { GuruHeaderFooterPosition } from '../helper/card.helper';
+import { BehaviorSubject } from 'rxjs';
+import { GuruHeaderFooterPosition } from '../../helper/card.helper';
 
 @Component({
   selector: 'guru-header',
@@ -11,10 +11,10 @@ import { GuruHeaderFooterPosition } from '../helper/card.helper';
   `
 })
 export class GuruHeaderComponent implements OnChanges, AfterViewInit {
-  @HostBinding('class.guru-header')
-  private GuruHeader = true;
+  @HostBinding('class.guru-header') GuruHeader = true;
   @Input() position: GuruHeaderFooterPosition = 'above-fixed';
   readonly _positionChanges = new BehaviorSubject<GuruHeaderFooterPosition>(this.position);
+  constructor() { }
   ngAfterViewInit(): void {
     this._positionChanges.next(this.position);
   }

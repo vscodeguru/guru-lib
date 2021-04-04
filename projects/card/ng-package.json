@@ -1,6 +1,6 @@
 {
-  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../dist/@guru",
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/card",
   "lib": {
     "entryFile": "public-api.ts",
     "umdModuleIds" :{

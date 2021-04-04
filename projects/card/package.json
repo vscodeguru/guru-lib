@@ -1,6 +1,11 @@
 {
-  "name": "@guru/lib",
+  "name": "@guru/card",
   "version": "0.0.1",
+  "description": "guru card plugin",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/vscodeguru/guru-lib",
+  "homepage": "https://github.com/vscodeguru/guru-lib",
+  "dependencies": {},
   "peerDependencies": {
     "@angular/cdk": "^11.2.6",
     "@angular/common": "^11.2.7",
@@ -12,8 +17,5 @@
     "@ngneat/until-destroy": "^8.0.4",
     "lodash": "^4.17.21",
     "perfect-scrollbar": "^1.5.0"
-  },
-  "dependencies": {
-    "tslib": "^2.0.0"
   }
 }

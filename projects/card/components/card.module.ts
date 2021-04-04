@@ -14,7 +14,7 @@ import {
   GuruHeaderComponent,
   GuruContentComponent,
   GuruFooterComponent
-} from './components';
+} from './inner';
 
 @NgModule({
   imports: [

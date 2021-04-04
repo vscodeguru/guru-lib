@@ -4,10 +4,10 @@ export {
   GuruSidebarRightComponent,
   GuruHeaderComponent,
   GuruContentComponent,
-  GuruFooterComponent
+  GuruFooterComponent,
+  GuruCardComponent,
+  GuruCardModule
 } from './components';
-export { GuruCardComponent } from './card.component';
-export { GuruCardModule } from './card.module';
 export {
   GuruHeaderFooterPosition,
   GuruSidebarPosition,

@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  Directive,
   ElementRef,
   HostListener,
   Input,
@@ -276,7 +275,7 @@ export class GuruContentScrollComponent implements OnInit, AfterViewInit, OnDest
    *  {Event} event
    */
   @HostListener('document:click', ['$event'])
-  protected documentClick(event: Event): void {
+  protected documentClick(): void {
     if (!this.isInitialized || !this.ps) {
       return;
     }

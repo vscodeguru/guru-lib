@@ -1,5 +1,5 @@
 {
-  "name": "guru-lib",
+  "name": "@angular-guru/library",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,10 +7,6 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "prepare": "rimraf ./dist/@guru && mkdirp ./dist/@guru && ng build @guru/lib && cd dist/@guru && npm link && npm pack && cd.. && cd.. && npm install ./dist/@guru/guru-lib-0.0.1.tgz",
-    "example": "npm run prepare && ng serve example",
-    "link": "cd dist/@guru && npm link",
-    "publish": "npm publish ./dist/@guru --tag next --dry-run",
     "postinstall": "ngcc",
     "e2e": "ng e2e"
   },
@@ -27,7 +23,6 @@
     "@angular/platform-browser": "^11.2.7",
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
-    "@guru/lib": "file:dist/@guru/guru-lib-0.0.1.tgz",
     "@ngneat/until-destroy": "^8.0.4",
     "lodash": "^4.17.21",
     "ng-packagr": "^11.2.4",
@@ -38,9 +33,13 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.6",
+    "@angular-devkit/build-ng-packagr": "^0.1002.0",
+    "@angular-devkit/schematics": "^11.2.6",
+    "@angular-devkit/schematics-cli": "^0.1102.6",
     "@angular/cli": "~11.2.6",
     "@angular/compiler-cli": "~11.2.7",
     "@types/jasmine": "~3.6.0",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",

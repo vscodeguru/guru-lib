@@ -1,13 +1,10 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, OnInit, ViewContainerRef } from '@angular/core';
-import { ContentChild, Input, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { ContentChild, TemplateRef, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { CardHelper, GuruSidebarAction } from './helper/card.helper';
-import { GuruContentComponent } from './components/content.component';
-import { GuruFooterComponent } from './components/footer.component';
-import { GuruHeaderComponent } from './components/header.component';
-import { GuruSidebarLeftComponent, GuruSidebarRightComponent } from './components/sidebar.component';
+import { CardHelper } from '../helper/card.helper';
+import { GuruContentComponent, GuruFooterComponent, GuruHeaderComponent, GuruSidebarLeftComponent, GuruSidebarRightComponent } from './inner';
 
 
 @UntilDestroy()
@@ -41,7 +38,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   @ViewChild('matNavLeft', { static: false }) private MatNavLeft!: MatSidenav;
   @ViewChild('matNavRight', { static: false }) private MatNavRight!: MatSidenav;
 
-  constructor(private _cd: ChangeDetectorRef) { }
+  constructor() { }
   ngAfterContentInit(): void {
     // ! Card View Mode
     if (this.guruSidebarRight && this.guruSidebarLeft) {

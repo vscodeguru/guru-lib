@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { GuruHeaderFooterPosition, GuruSidebarLeftComponent } from '@guru/lib/card';
+import { GuruHeaderFooterPosition } from '@guru/card';
 
 @Component({
   selector: 'app-root',

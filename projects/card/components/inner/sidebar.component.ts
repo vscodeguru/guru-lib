@@ -1,13 +1,12 @@
 import {
-  AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component,
+  AfterContentChecked, AfterViewInit, Component,
   EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges
 } from '@angular/core';
-import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { GuruSidebarMode, GuruSidebarPosition, CardHelper, GuruBreakpointMode } from '../helper/card.helper';
+import { GuruSidebarMode, CardHelper, GuruBreakpointMode } from '../../helper/card.helper';
 import * as _ from 'lodash';
-import { Platform } from '@angular/cdk/platform';
 @UntilDestroy()
 @Component({
   selector: 'guru-sidebar',
@@ -16,17 +15,17 @@ import { Platform } from '@angular/cdk/platform';
 export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
   private _nav!: MatSidenav;
   // Input
-  @Input() width: string;
-  @Input() autoFocus: boolean;
-  @Input() disableClose: boolean;
-  @Input() mode: GuruSidebarMode;
-  @Input() opened: boolean;
+  @Input() width!: string;
+  @Input() autoFocus!: boolean;
+  @Input() disableClose!: boolean;
+  @Input() mode!: GuruSidebarMode;
+  @Input() opened!: boolean;
 
-  @Input() guruXs: GuruBreakpointMode;
-  @Input() guruSm: GuruBreakpointMode;
-  @Input() guruMd: GuruBreakpointMode;
-  @Input() guruLg: GuruBreakpointMode;
-  @Input() guruXl: GuruBreakpointMode;
+  @Input() guruXs!: GuruBreakpointMode;
+  @Input() guruSm!: GuruBreakpointMode;
+  @Input() guruMd!: GuruBreakpointMode;
+  @Input() guruLg!: GuruBreakpointMode;
+  @Input() guruXl!: GuruBreakpointMode;
 
   // Output
   @Output() openedChange: EventEmitter<boolean> = new EventEmitter(undefined);
@@ -37,7 +36,7 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
   constructor(
     private breakpointObserver: BreakpointObserver
   ) { }
-  ngOnChanges(changes: SimpleChanges): void { }
+  ngOnChanges(_changes: SimpleChanges): void { }
   ngOnInit(): void { }
   ngAfterContentChecked(): void { }
   ngAfterViewInit(): void { }
