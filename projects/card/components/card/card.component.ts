@@ -3,7 +3,7 @@ import { ContentChild, TemplateRef, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { CardHelper } from '../helper/card.helper';
+import { CardHelper } from '../../helper/card.helper';
 import { GuruContentComponent, GuruFooterComponent, GuruHeaderComponent, GuruSidebarLeftComponent, GuruSidebarRightComponent } from './inner';
 
 
