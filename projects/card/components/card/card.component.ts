@@ -57,11 +57,9 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
     setTimeout(() => {
       if (this.guruSidebarLeft) {
         this.guruSidebarLeft.bind(this.MatNavLeft);
-        console.log('guruSidebarLeft', this.guruSidebarLeft.width);
       }
       if (this.guruSidebarRight) {
         this.guruSidebarRight.bind(this.MatNavRight);
-        console.log('guruSidebarRight', this.guruSidebarRight.width);
       }
     });
   }

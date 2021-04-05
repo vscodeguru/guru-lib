@@ -25,5 +25,8 @@
       "@guru/card": ["projects/card/public-api.ts"],
       "@guru/card/*": ["projects/card/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true
   }
 }

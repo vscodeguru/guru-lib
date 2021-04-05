@@ -1,0 +1,49 @@
+<guru-card>
+  <guru-sidebar-left #navLeft width="100px" [opened]="true" mode="side">
+  </guru-sidebar-left>
+  <guru-sidebar-right #navRight width="100px" [opened]="true" mode="side">
+  </guru-sidebar-right>
+  <guru-header [position]="headerPosition"></guru-header>
+  <guru-content>
+    <button (click)="navLeft.toggle()">Toogle Left Sidebar</button>
+    <button (click)="navRight.toggle()">Toogle Right Sidebar</button>
+    <label>
+      Header :
+      <span>
+        <input type="radio" name="headerPosition" (click)="headerPosition = 'above-fixed'"
+          [checked]="headerPosition === 'above-fixed'" /> Above
+      </span>
+      <span>
+        <input type="radio" name="headerPosition" (click)="headerPosition = 'below-fixed'"
+          [checked]="headerPosition === 'below-fixed'" />
+        Fixed
+      </span>
+      <span>
+        <input type="radio" name="headerPosition" (click)="headerPosition = 'below-static'"
+          [checked]="headerPosition === 'below-static'" /> Static
+      </span>
+    </label>
+    <label>
+      Footer :
+      <span>
+        <input type="radio" name="footerPosition" (click)="footerPosition = 'above-fixed'"
+          [checked]="footerPosition === 'above-fixed'" />
+        Above
+      </span>
+      <span>
+        <input type="radio" name="footerPosition" (click)="footerPosition = 'below-fixed'"
+          [checked]="footerPosition === 'below-fixed'" />
+        Fixed
+      </span>
+      <span>
+        <input type="radio" name="footerPosition" (click)="footerPosition = 'below-static'"
+          [checked]="footerPosition === 'below-static'" /> Static
+      </span>
+    </label>
+    <div style="min-height: 200px; margin-top: 10px; border: 1px solid #000; background-color: blue; width: 200px;"
+      *ngFor='let in of counter(20) ;let i = index'>
+      <h1>{{i+1}}</h1>
+    </div>
+  </guru-content>
+  <guru-footer [position]="footerPosition"></guru-footer>
+</guru-card>
