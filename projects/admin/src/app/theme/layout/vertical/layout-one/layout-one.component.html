@@ -3,7 +3,9 @@
   </guru-sidebar-left>
   <guru-sidebar-right #navRight width="100px" [opened]="true" mode="side">
   </guru-sidebar-right>
-  <guru-header [position]="headerPosition"></guru-header>
+  <guru-header [position]="headerPosition">
+    <app-header></app-header>
+  </guru-header>
   <guru-content>
     <button (click)="navLeft.toggle()">Toogle Left Sidebar</button>
     <button (click)="navRight.toggle()">Toogle Right Sidebar</button>
@@ -45,5 +47,7 @@
       <h1>{{i+1}}</h1>
     </div>
   </guru-content>
-  <guru-footer [position]="footerPosition"></guru-footer>
+  <guru-footer [position]="footerPosition">
+    <app-footer></app-footer>
+  </guru-footer>
 </guru-card>
