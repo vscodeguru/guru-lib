@@ -3,10 +3,13 @@
   "dest": "../../dist/card",
   "lib": {
     "entryFile": "public-api.ts",
-    "umdModuleIds" :{
-      "@ngneat/until-destroy" : "@ngneat/until-destroy",
-      "perfect-scrollbar" : "perfect-scrollbar",
-      "lodash" : "lodash"
+    "umdModuleIds": {
+      "@ngneat/until-destroy": "@ngneat/until-destroy",
+      "perfect-scrollbar": "perfect-scrollbar",
+      "lodash": "lodash"
     }
-  }
+  },
+  "assets": [
+    "style.less"
+  ]
 }

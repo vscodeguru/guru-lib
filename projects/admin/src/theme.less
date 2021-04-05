@@ -9,5 +9,61 @@
   ! Button Size: 37.19 kB
   ? @import "~ng-zorro-antd/button/style/entry.less";
 */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 // ! Full Import Size: 502.05 kB
-@import "~node_modules/ng-zorro-antd/ng-zorro-antd.less";
+@import "/projects/card/style.less";
+// @import "~ng-zorro-antd/ng-zorro-antd.compact.less";
+@import "~ng-zorro-antd/ng-zorro-antd.less";
+@import "./app/theme/layout/components/sidebar/sidebar.theme.less";
+// @layout-sider-background: blue;
+@layout-body-background: #f0f2f5;
+@layout-header-background: #333484;
+@layout-sider-background: #0f172a;
+
+// Menu
+@menu-bg: @layout-sider-background;
+@menu-popup-bg: @layout-sider-background;
+@menu-item-color: #cbd5e1;
+@menu-highlight-color: #d9d9d9;
+@menu-highlight-danger-color: @error-color;
+@menu-item-active-bg: hsla(0, 0%, 100%, 0.12); //hsla(0, 0%, 100%, 0.06);
+@menu-item-active-danger-bg: @red-1;
+@menu-item-hover-bg: hsla(0, 0%, 100%, 0.06);
+@menu-item-group-title-color: #d9d9d9;
+@menu-item-vertical-margin: 0px; // Font
+@menu-item-boundary-margin: 0px;
+@font-size-base: 13px;
+@font-family: Inter var, ui-sans-serif, system-ui, -apple-system,
+  BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+  sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+  Noto Color Emoji;
+@menu-item-height: 48px;
+@menu-inline-toplevel-item-height: @menu-item-height;
+//menu
+.@{menu-prefix-cls} {
+  &-vertical,
+  &-vertical-left,
+  &-vertical-right,
+  &-inline {
+    .@{menu-prefix-cls}-item,
+    .@{menu-prefix-cls}-submenu-title,
+    .@{menu-prefix-cls}-item-group-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 12px 24px;
+      &:hover {
+        background-color: @menu-item-hover-bg;
+      }
+    }
+    .@{menu-prefix-cls}-submenu {
+      &.@{menu-prefix-cls}-submenu-open{
+        background-color: red;
+      }
+    }
+  }
+}
+
+// .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open {
+//   background-color: hsla(0, 0%, 100%, 0.06);
+// }

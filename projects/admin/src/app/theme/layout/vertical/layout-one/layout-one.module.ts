@@ -9,17 +9,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { GuruCardModule } from '@guru/card';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { MatrixSidebarModule } from '../../components/sidebar/sidebar.module';
 
 @NgModule({
   imports: [
-    CommonModule, MatSidenavModule, FlexLayoutModule, MatToolbarModule, GuruCardModule
+    CommonModule, MatSidenavModule, FlexLayoutModule, MatToolbarModule, GuruCardModule,
+    MatrixSidebarModule
   ],
   declarations: [
     VerticalLayoutOneComponent,
     FooterComponent,
-    HeaderComponent,
-    SidebarComponent
+    HeaderComponent
   ],
   exports: [VerticalLayoutOneComponent],
 })
