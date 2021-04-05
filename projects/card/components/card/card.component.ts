@@ -4,7 +4,10 @@ import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CardHelper } from '../../helper/card.helper';
-import { GuruContentComponent, GuruFooterComponent, GuruHeaderComponent, GuruSidebarLeftComponent, GuruSidebarRightComponent } from './inner';
+import { GuruHeaderComponent } from '../header';
+import { GuruContentComponent } from '../content';
+import { GuruFooterComponent } from '../footer';
+import { GuruSidebarLeftComponent, GuruSidebarRightComponent } from '../sidebar';
 
 
 @UntilDestroy()
