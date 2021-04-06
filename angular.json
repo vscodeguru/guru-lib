@@ -149,7 +149,7 @@
         "@schematics/angular:component": {
           "inlineTemplate": false,
           "inlineStyle": false,
-          "style": "scss",
+          "style": "less",
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -200,8 +200,8 @@
               }
             ],
             "styles": [
-              "projects/admin/src/theme.less",
-              "projects/admin/src/styles.scss"
+              "projects/admin/src/styles.scss",
+              "projects/admin/src/theme.less"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [

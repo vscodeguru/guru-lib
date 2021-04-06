@@ -1,0 +1,159 @@
+@ant-prefix: "ant";
+@menu-prefix-cls: ~"@{ant-prefix}-menu";
+//! MENU START
+//? Menu => Background Colors
+@layout-sider-background: #0f172a;
+@menu-bg: @layout-sider-background;
+@menu-popup-bg: @layout-sider-background;
+@menu-item-active-bg: hsla(0, 0%, 100%, 0.12);
+@menu-item-highlight-bg: hsla(0, 0%, 100%, 0.06);
+//? Menu => Colors
+@menu-item-color: #cbd5e1;
+@menu-item-active-color: black;
+@menu-item-highlight-color: #d9d9d9;
+@menu-item-group-title-color: @menu-item-color;
+//? Menu => Height
+@menu-item-height: 40px;
+@menu-inline-toplevel-item-height: @menu-item-height;
+//? Menu => Margin
+@menu-item-vertical-margin: 0px;
+@menu-item-boundary-margin: 0px;
+//! MENU END
+
+// default theme
+.@{menu-prefix-cls} {
+  color: @menu-item-color;
+  background: @menu-bg;
+
+  &-vertical,
+  &-vertical-left,
+  &-vertical-right,
+  &-inline {
+    border-right: initial;
+    border-left: initial;
+    .@{menu-prefix-cls}-item,
+    .@{menu-prefix-cls}-submenu-title,
+    .@{menu-prefix-cls}-item-group-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      &:hover {
+        background-color: @menu-item-highlight-bg;
+      }
+    }
+  }
+
+  &-inline {
+    .@{menu-prefix-cls}-sub{
+      .@{menu-prefix-cls}-item, .@{menu-prefix-cls}-submenu-title{
+        &::before {
+          border-color: inherit;
+        }
+      }
+    }
+  }
+
+  &-item-group-title {
+    color: @menu-item-group-title-color;
+  }
+
+  &-submenu-selected {
+    color: @menu-item-color;
+  }
+
+  &-item:active,
+  &-submenu-title:active {
+    background: @menu-item-active-bg;
+  }
+
+  &-item a {
+    color: @menu-item-color;
+    &:hover {
+      color: @menu-item-highlight-color;
+    }
+  }
+
+  // https://github.com/ant-design/ant-design/issues/19809
+  &-item > .@{ant-prefix}-badge a {
+    color: @menu-item-color;
+    &:hover {
+      color: @menu-item-highlight-color;
+    }
+  }
+
+  &-item:hover,
+  &-item-active,
+  &:not(&-inline) &-submenu-open,
+  &-submenu-title:hover {
+    color: @menu-item-highlight-color;
+  }
+
+  &:not(&-horizontal) &-item-selected {
+    background-color: @menu-item-active-bg;
+    &:hover {
+      background-color: @menu-item-highlight-bg;
+    }
+  }
+
+  &-item-selected, &-item-selected a {
+    color:  @menu-item-active-color;
+    border-color: @menu-item-active-color;
+    &:hover {
+      color: @menu-item-highlight-color;
+      border-color: @menu-item-highlight-color;
+    }
+  }
+
+  &-submenu {
+    > .@{menu-prefix-cls} {
+      background-color: @menu-bg;
+    }
+
+    &-popup > .@{menu-prefix-cls} {
+      background-color: @menu-popup-bg;
+    }
+
+    &-expand-icon,
+    &-arrow {
+      color: @menu-item-color;
+    }
+
+    &:hover > &-title > &-expand-icon,
+    &:hover > &-title > &-arrow {
+      color: @menu-item-highlight-color;
+    }
+  }
+
+  &-vertical &-submenu-selected,
+  &-vertical-left &-submenu-selected,
+  &-vertical-right &-submenu-selected {
+    color: @menu-item-color;
+  }
+
+  &-horizontal {
+    &:not(.@{menu-prefix-cls}-dark) {
+      > .@{menu-prefix-cls}-item,
+      > .@{menu-prefix-cls}-submenu {
+        &:hover,
+        &-active,
+        &-open,
+        &-selected {
+          color: @menu-item-highlight-color;
+          border-bottom: 2px solid @menu-item-highlight-color;
+        }
+      }
+    }
+
+    > .@{menu-prefix-cls}-item {
+      a {
+        color: @menu-item-color;
+        &:hover {
+          color: @menu-item-highlight-color;
+        }
+      }
+      &-selected a {
+        color: @menu-item-highlight-color;
+      }
+    }
+  }
+}

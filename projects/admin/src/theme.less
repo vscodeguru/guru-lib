@@ -26,20 +26,16 @@
 @layout-body-background: #f0f2f5;
 @layout-header-background: #333484;
 @layout-sider-background: #0f172a;
-// Menu
-@menu-bg: @layout-sider-background;
-@menu-popup-bg: @layout-sider-background;
-@menu-item-color: #cbd5e1;
-@menu-highlight-color: #d9d9d9;
-@menu-highlight-danger-color: @error-color;
-@menu-item-active-bg: hsla(0, 0%, 100%, 0.12);
-@menu-item-active-danger-bg: @red-1;
-@menu-item-hover-bg: hsla(0, 0%, 100%, 0.06);
-@menu-item-group-title-color: #d9d9d9;
-@menu-item-vertical-margin: 0px; // Font
-@menu-item-boundary-margin: 0px;
+//! MENU START
+//? Menu => Background Colors
+
+//? Menu => Height
 @menu-item-height: 40px;
 @menu-inline-toplevel-item-height: @menu-item-height;
+//? Menu => Margin
+@menu-item-vertical-margin: 0px;
+@menu-item-boundary-margin: 0px;
+//! MENU END
 //menu
 .@{menu-prefix-cls} {
   &-vertical,
@@ -54,9 +50,6 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      &:hover {
-        background-color: @menu-item-hover-bg;
-      }
     }
   }
   &-inline {
@@ -100,7 +93,7 @@
           width: 6px;
           height: 6px;
           content: "";
-          border: 1px solid @menu-item-color;
+          border: 1px solid;
           border-radius: 3px;
           margin-right: 10px;
         }
