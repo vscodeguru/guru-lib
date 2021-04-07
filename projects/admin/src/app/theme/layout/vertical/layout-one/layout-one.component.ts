@@ -21,7 +21,8 @@ export class VerticalLayoutOneComponent implements OnInit {
       'menu-item-active-bg': { desc: 'Current Menu Backgroud', default: 'hsla(0,0,100,0.12)', ctrlType: 'color' },
       'menu-item-active-color': { desc: 'Current Menu Backgroud', default: '#f8fafc', ctrlType: 'color' },
       'menu-item-highlight-bg': { desc: 'Hover Menu Backgroud', default: 'hsla(0,0,100,0.06)', ctrlType: 'color' },
-      'menu-item-highlight-color': { desc: 'Hover Menu Color', default: '#f8fafc', ctrlType: 'color' }
+      'menu-item-highlight-color': { desc: 'Hover Menu Color', default: '#f8fafc', ctrlType: 'color' },
+      'layout-sider-box-shadow': { desc: 'Menu Box Shadow', default: '3px 0px 5px 0px rgba(158, 158, 158, 0.66)', ctrlType: 'text' }
     },
     header: {
       'layout-header-background': { desc: 'Header Backgroud', default: '#f0f0f0', ctrlType: 'color' },

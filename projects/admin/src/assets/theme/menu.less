@@ -21,6 +21,7 @@
 
 //! MENU START
 //? Menu => Background Colors
+@layout-sider-box-shadow: 3px 0px 5px 0px rgba(158, 158, 158, 0.66);
 @layout-sider-background: #313483;
 @menu-bg: transparent;
 @menu-popup-bg: @layout-sider-background;
@@ -178,6 +179,11 @@
 }
 
 guru-card {
+  .mat-drawer{
+    -webkit-box-shadow: @layout-sider-box-shadow;
+    -moz-box-shadow: @layout-sider-box-shadow;
+    box-shadow: @layout-sider-box-shadow;
+  }
   .mat-drawer-side{
     border: unset;
   }
