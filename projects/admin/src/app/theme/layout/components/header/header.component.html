@@ -1,1 +1,50 @@
-<p>header works!</p>
+<div class="action-container">
+  <div class="action sidebar-toggle">
+    <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
+  </div>
+</div>
+
+
+<div class="action-container" fxLayout="row" fxLayoutAlign="end center">
+  <div class="action">
+    <button nz-button nzType="default">
+      <i nz-icon nzType="security-scan" nzTheme="twotone" [nzTwotoneColor]="'#3DCDC6'"></i>
+    </button>
+  </div>
+  <div class="action">
+    <button nz-button nzType="default">
+      <i nz-icon nzType="bell" nzTheme="twotone"></i>
+    </button>
+  </div>
+  <div class="action">
+    <button nz-button nzType="default">
+      <i nz-icon nzType="setting" nzTheme="twotone" [nzTwotoneColor]="'#F9C45A'"></i>
+    </button>
+  </div>
+  <div class="action user-action" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu"
+    nzOverlayClassName="user-action-menu">
+    <div class="user-desc" fxLayout="column" fxLayoutAlign="center end">
+      <span class="name">Prabakaran</span>
+      <span class="designation">Team Lead</span>
+    </div>
+    <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
+  </div>
+</div>
+
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>
+      <i nz-icon nzType="appstore" nzTheme="twotone" nzTwotoneColor="#3DCDC6"></i>
+      Account Center
+    </li>
+    <li nz-menu-item>
+      <i nz-icon nzType="setting" nzTheme="twotone"></i>Account Settings
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item>
+      <i nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#F9C45A"></i> Logout
+    </li>
+
+  </ul>
+</nz-dropdown-menu>

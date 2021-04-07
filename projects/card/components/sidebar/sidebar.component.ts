@@ -21,10 +21,10 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
   @Input() mode!: GuruSidebarMode;
   @Input() opened!: boolean;
 
-  @Input() guruXs!: GuruBreakpointMode;
-  @Input() guruSm!: GuruBreakpointMode;
-  @Input() guruMd!: GuruBreakpointMode;
-  @Input() guruLg!: GuruBreakpointMode;
+  @Input() guruXs: GuruBreakpointMode = { opened: false, mode: 'over' };
+  @Input() guruSm: GuruBreakpointMode = { opened: false, mode: 'over' };
+  @Input() guruMd: GuruBreakpointMode = { opened: false, mode: 'over' };
+  @Input() guruLg: GuruBreakpointMode = { opened: false, mode: 'over' };
   @Input() guruXl!: GuruBreakpointMode;
 
   // Output
@@ -55,6 +55,9 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
     this.opened = !CardHelper.isValidObj(this.opened) ? true : this.opened;
 
     this.guruLg = { mode: this.mode, opened: this.opened };
+    if (!CardHelper.isValidObj(this.guruXl)) {
+      this.guruXl = { mode: this.mode, opened: this.opened };
+    }
 
     this._nav.mode = this.guruLg.mode;
     this._nav.autoFocus = this.autoFocus;

@@ -27,8 +27,9 @@ export class VerticalLayoutOneComponent implements OnInit {
     header: {
       'layout-header-background': { desc: 'Header Backgroud', default: '#f0f0f0', ctrlType: 'color' },
       'layout-header-height': { desc: 'Header Height', default: '50px', ctrlType: 'text' },
-      'layout-header-padding': { desc: 'Header Padding', default: '0 24px', ctrlType: 'text' },
+      'layout-header-padding': { desc: 'Header Padding', default: '0 0px', ctrlType: 'text' },
       'layout-header-color': { desc: 'Header Color', default: '#313483', ctrlType: 'color' },
+      'layout-header-border-color': { desc: 'Header border Color', default: '#f0f0f0', ctrlType: 'color' },
       'layout-header-box-shadow': { desc: 'Header Box Shadow', default: '0px 2px 5px 0px rgba(0, 0, 0, 0.30)', ctrlType: 'text' },
       'layout-header-position': {
         desc: 'Header Position', default: 'below-fixed', ctrlType: 'option',
@@ -44,6 +45,7 @@ export class VerticalLayoutOneComponent implements OnInit {
       'layout-footer-height': { desc: 'Footer Height', default: '50px', ctrlType: 'text' },
       'layout-footer-padding': { desc: 'Footer Padding', default: '0 24px', ctrlType: 'text' },
       'layout-footer-color': { desc: 'Footer Color', default: '#313483', ctrlType: 'color' },
+      'layout-footer-border-color': { desc: 'Footer border Color', default: '#f0f0f0', ctrlType: 'color' },
       'layout-footer-box-shadow': { desc: 'Footer Box Shadow', default: '2px 0px 5px 0px rgba(0, 0, 0, 0.30)', ctrlType: 'text' },
       'layout-footer-position': {
         desc: 'Footer Position', default: 'below-fixed', ctrlType: 'option',
