@@ -10,6 +10,9 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { MatrixSidebarModule } from '../../components/sidebar/sidebar.module';
 import { FormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 import { ColorPickerModule } from 'ngx-color-picker';
 @NgModule({
   imports: [
@@ -19,6 +22,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
     GuruCardModule,
     MatrixSidebarModule,
     NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzGridModule,
     ColorPickerModule
   ],
   declarations: [

@@ -5,20 +5,60 @@
   <guru-sidebar-right #navRight width="100px" [opened]="false" mode="push">
   </guru-sidebar-right>
   <guru-header [position]="headerPosition">
-    <app-header></app-header>
+    <h3>Header</h3>
   </guru-header>
   <guru-content>
-    <nz-form-item *ngFor="let key of validSidebarKeys">
-      <nz-form-label [nzSpan]="4">{{mlTheme.Sidebar[key].desc}}</nz-form-label>
-      <nz-form-control [nzSpan]="14">
-        <button [cpPosition]="'bottom'" style="height: 25px; width: 25px; border:1px solid black;"
-          [style.background]="mlTheme.Sidebar[key].default" [(colorPicker)]="mlTheme.Sidebar[key].default">
-        </button>
-      </nz-form-control>
-    </nz-form-item>
+    <form nz-form [nzLayout]="'vertical'">
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div nz-col [nzSpan]="6">
+          <h3>Sidebar Config</h3>
+          <hr />
+          <nz-form-item *ngFor="let key of validSidebarKeys">
+            <ng-container [ngTemplateOutlet]="configTemplate"
+              [ngTemplateOutletContext]="{ $implicit: mlTheme.Sidebar[key], isHorizontal: false}">
+            </ng-container>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <h3>Header Config</h3>
+          <hr />
+          <nz-form-item *ngFor="let key of validHeaderKeys">
+            <ng-container [ngTemplateOutlet]="configTemplate"
+              [ngTemplateOutletContext]="{ $implicit: mlTheme.header[key], isHorizontal: false}">
+            </ng-container>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <h3>Footer Config</h3>
+          <hr />
+          <nz-form-item *ngFor="let key of validFooterKeys">
+            <ng-container [ngTemplateOutlet]="configTemplate"
+              [ngTemplateOutletContext]="{ $implicit: mlTheme.footer[key], isHorizontal: false}">
+            </ng-container>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
     <button (click)="preview()">Calc</button>
   </guru-content>
   <guru-footer [position]="footerPosition">
-    <app-footer></app-footer>
+    <h3>Footer</h3>
   </guru-footer>
 </guru-card>
+
+<ng-template #configTemplate let-config let-isHorizontal="isHorizontal">
+  <nz-form-label>{{config.desc}} </nz-form-label>
+  <nz-form-control *ngIf="config.ctrlType === 'color'">
+    <input nz-input [cpPosition]="'bottom'" [style.background]="config.default" [(colorPicker)]="config.default"
+      [(ngModel)]="config.default" [ngModelOptions]="{standalone: true}">
+  </nz-form-control>
+  <nz-form-control *ngIf="config.ctrlType === 'text'">
+    <input nz-input [(ngModel)]="config.default" [ngModelOptions]="{standalone: true}" placeholder="">
+  </nz-form-control>
+  <nz-form-control *ngIf="config.ctrlType === 'option'">
+    <nz-select [(ngModel)]="config.default">
+      <nz-option *ngFor="let opt of config.optValues" [nzValue]="opt.value" [nzLabel]="opt.text">
+      </nz-option>
+    </nz-select>
+  </nz-form-control>
+</ng-template>

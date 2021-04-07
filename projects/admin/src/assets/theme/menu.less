@@ -1,16 +1,35 @@
 @ant-prefix: "ant";
 @menu-prefix-cls: ~"@{ant-prefix}-menu";
+
+
+
+//! HEADER START
+@layout-header-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.30);
+@layout-header-background: #001529;
+@layout-header-height: 64px;
+@layout-header-padding: 0 50px;
+@layout-header-color: #001529;
+//! HEADER END
+
+//! FOOTER START
+@layout-footer-box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.30);
+@layout-footer-background: #001529;
+@layout-footer-height: 64px;
+@layout-footer-padding: 24px 50px;
+@layout-footer-color: #001529;
+//! FOOTER END
+
 //! MENU START
 //? Menu => Background Colors
-@layout-sider-background: #0f172a;
-@menu-bg: @layout-sider-background;
+@layout-sider-background: #313483;
+@menu-bg: transparent;
 @menu-popup-bg: @layout-sider-background;
 @menu-item-active-bg: hsla(0, 0%, 100%, 0.12);
 @menu-item-highlight-bg: hsla(0, 0%, 100%, 0.06);
 //? Menu => Colors
-@menu-item-color: #cbd5e1;
-@menu-item-active-color: black;
-@menu-item-highlight-color: #d9d9d9;
+@menu-item-color: #f8fafc;
+@menu-item-active-color: f8fafc;
+@menu-item-highlight-color: #f8fafc;
 @menu-item-group-title-color: @menu-item-color;
 //? Menu => Height
 @menu-item-height: 40px;
@@ -158,6 +177,41 @@
   }
 }
 
+guru-card {
+  .mat-drawer-side{
+    border: unset;
+  }
+  guru-header {
+    -webkit-box-shadow: @layout-header-box-shadow;
+    -moz-box-shadow: @layout-header-box-shadow;
+    box-shadow: @layout-header-box-shadow;
+    z-index: 2;
+    .mat-toolbar {
+      background-color: @layout-header-background;
+      height: @layout-header-height;
+      color: @layout-header-color;
+      padding: @layout-header-padding;
+      h1,h2,h3,h4,h5,h6, label, span, i, p {
+        color: @layout-header-color;
+      }
+    }
+  }
+  guru-footer {
+    -webkit-box-shadow: @layout-footer-box-shadow;
+    -moz-box-shadow: @layout-footer-box-shadow;
+    box-shadow: @layout-footer-box-shadow;
+    z-index: 2;
+    .mat-toolbar {
+      background-color: @layout-footer-background;
+      height: @layout-footer-height;
+      color: @layout-footer-color;
+      padding: @layout-header-padding;
+      h1,h2,h3,h4,h5,h6, label, span, i, p {
+        color: @layout-header-color;
+      }
+    }
+  }
+}
 
 matrix-sidebar-left {
   guru-card {
@@ -168,6 +222,7 @@ matrix-sidebar-left {
     }
     guru-content {
       background-color: @layout-sider-background;
+      background-image: url('/assets/images/bg/sidebar-bg.png');
     }
   }
 }
