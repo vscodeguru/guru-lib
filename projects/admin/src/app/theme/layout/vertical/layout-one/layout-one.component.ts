@@ -17,7 +17,7 @@ export class VerticalLayoutOneComponent implements OnInit {
   mlTheme: ITheme = {
     Sidebar: {
       'layout-sider-background': { desc: 'Sidebar Backgroud', default: '#0f172a' },
-      'menu-item-color': { desc: 'Sidebar Backgroud', default: '#ec7070' },
+      'menu-item-color': { desc: 'Sidebar Item Color', default: '#ec7070' },
 
       'menu-item-active-bg': { desc: 'Current Menu Backgroud', default: 'yellow' },
       'menu-item-active-color': { desc: 'Current Menu Backgroud', default: 'black' },
@@ -29,7 +29,7 @@ export class VerticalLayoutOneComponent implements OnInit {
   }
   data: any = {};
   loadedLess = false;
-  private get validSidebarKeys(): string[] {
+  public get validSidebarKeys(): string[] {
     return Object.keys(this.mlTheme?.Sidebar || {});
   }
   constructor(

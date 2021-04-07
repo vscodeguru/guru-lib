@@ -8,12 +8,11 @@
     <app-header></app-header>
   </guru-header>
   <guru-content>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="4">Menu Item Color</nz-form-label>
+    <nz-form-item *ngFor="let key of validSidebarKeys">
+      <nz-form-label [nzSpan]="4">{{mlTheme.Sidebar[key].desc}}</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <button [cpPosition]="'bottom'" style="height: 25px; width: 25px; border:1px solid black;"
-          [style.background]="mlTheme.Sidebar['menu-item-color'].default"
-          [(colorPicker)]="mlTheme.Sidebar['menu-item-color'].default">
+          [style.background]="mlTheme.Sidebar[key].default" [(colorPicker)]="mlTheme.Sidebar[key].default">
         </button>
       </nz-form-control>
     </nz-form-item>
