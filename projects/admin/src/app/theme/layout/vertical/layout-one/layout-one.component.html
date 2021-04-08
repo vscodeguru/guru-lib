@@ -1,47 +1,60 @@
-<guru-card>
-  <guru-sidebar-left #navLeft width="250px" [opened]="true" mode="side">
+<guru-card class="matrix-layout">
+  <guru-sidebar-left class="matrix-layout-sidebar-left" #navLeft (openedChange)="print($event, 'navLeft')" width="250px"
+    [opened]="true" mode="side">
     <matrix-sidebar-left></matrix-sidebar-left>
   </guru-sidebar-left>
-  <guru-sidebar-right #navRight width="100px" [opened]="false" mode="push">
+  <guru-sidebar-right class="matrix-layout-sidebar-right" #navRight width="100px" [opened]="false" mode="push">
   </guru-sidebar-right>
-  <guru-header [position]="headerPosition">
+  <guru-header [position]="headerPosition" class="matrix-layout-header">
     <app-header fxFill></app-header>
   </guru-header>
-  <guru-content>
-    <form nz-form [nzLayout]="'vertical'">
-      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-        <div nz-col [nzSpan]="6">
-          <h3>Sidebar Config</h3>
-          <hr />
-          <nz-form-item *ngFor="let key of validSidebarKeys">
-            <ng-container [ngTemplateOutlet]="configTemplate"
-              [ngTemplateOutletContext]="{ $implicit: mlTheme.Sidebar[key], isHorizontal: false}">
-            </ng-container>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="6">
-          <h3>Header Config</h3>
-          <hr />
-          <nz-form-item *ngFor="let key of validHeaderKeys">
-            <ng-container [ngTemplateOutlet]="configTemplate"
-              [ngTemplateOutletContext]="{ $implicit: mlTheme.header[key], isHorizontal: false}">
-            </ng-container>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="6">
-          <h3>Footer Config</h3>
-          <hr />
-          <nz-form-item *ngFor="let key of validFooterKeys">
-            <ng-container [ngTemplateOutlet]="configTemplate"
-              [ngTemplateOutletContext]="{ $implicit: mlTheme.footer[key], isHorizontal: false}">
-            </ng-container>
-          </nz-form-item>
-        </div>
-      </div>
-    </form>
-    <button (click)="preview()">Calc</button>
+  <guru-content class="matrix-layout-content">
+    <div style="height: 400px; width: 400px;">
+      <guru-card>
+        <guru-sidebar-left #navLeft1 (openedChange)="print($event, 'navLeft1')"></guru-sidebar-left>
+        <guru-header></guru-header>
+        <guru-content>
+          <form nz-form [nzLayout]="'vertical'">
+            <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+              <div nz-col [nzSpan]="6">
+                <h3>Sidebar Config</h3>
+                <hr />
+                <nz-form-item *ngFor="let key of validSidebarKeys">
+                  <ng-container [ngTemplateOutlet]="configTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: mlTheme.Sidebar[key], isHorizontal: false}">
+                  </ng-container>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="6">
+                <h3>Header Config</h3>
+                <hr />
+                <nz-form-item *ngFor="let key of validHeaderKeys">
+                  <ng-container [ngTemplateOutlet]="configTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: mlTheme.header[key], isHorizontal: false}">
+                  </ng-container>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="6">
+                <h3>Footer Config</h3>
+                <hr />
+                <nz-form-item *ngFor="let key of validFooterKeys">
+                  <ng-container [ngTemplateOutlet]="configTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: mlTheme.footer[key], isHorizontal: false}">
+                  </ng-container>
+                </nz-form-item>
+              </div>
+            </div>
+          </form>
+          <button (click)="preview()">Calc</button>
+          <button (click)="navLeft.toggle()">SideNav</button>
+          <button (click)="navLeft1.toggle()">SideNav1</button>
+
+        </guru-content>
+        <guru-footer></guru-footer>
+      </guru-card>
+    </div>
   </guru-content>
-  <guru-footer [position]="footerPosition">
+  <guru-footer id="2" [position]="footerPosition" class="matrix-layout-footer">
     <h3>Footer</h3>
   </guru-footer>
 </guru-card>

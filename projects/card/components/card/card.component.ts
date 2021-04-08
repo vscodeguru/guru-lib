@@ -8,13 +8,15 @@ import { GuruHeaderComponent } from '../header';
 import { GuruContentComponent } from '../content';
 import { GuruFooterComponent } from '../footer';
 import { GuruSidebarLeftComponent, GuruSidebarRightComponent } from '../sidebar';
+import { CardService } from '@guru/card/service/card.service';
 
 
 @UntilDestroy()
 @Component({
   selector: 'guru-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  providers: [CardService]
 })
 
 export class GuruCardComponent implements AfterContentInit, AfterViewInit {
@@ -41,7 +43,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   @ViewChild('matNavLeft', { static: false }) private MatNavLeft!: MatSidenav;
   @ViewChild('matNavRight', { static: false }) private MatNavRight!: MatSidenav;
 
-  constructor() { }
+  constructor(private srvCard: CardService) { }
   ngAfterContentInit(): void {
     // ! Card View Mode
     if (this.guruSidebarRight && this.guruSidebarLeft) {
@@ -74,7 +76,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   private _headerHandler(): void {
     if (this.guruHeader) {
       // tslint:disable-next-line: deprecation
-      this.guruHeader._positionChanges.pipe(untilDestroyed(this)).subscribe(
+      this.srvCard._headerPositionChanges.pipe(untilDestroyed(this)).subscribe(
         {
           next: (position) => {
             // ! 1. Remove Above Header
@@ -103,9 +105,10 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   private _footerHandler(): void {
     if (this.guruFooter) {
       // tslint:disable-next-line: deprecation
-      this.guruFooter._positionChanges.pipe(untilDestroyed(this)).subscribe(
+      this.srvCard._footerPositionChanges.pipe(untilDestroyed(this)).subscribe(
         {
           next: (position) => {
+            console.log('srvCard', position);
             // ! 1. Remove Above Footer
             CardHelper.removeContainer(this.vcAboveFooter);
             // ! 2. Remove Fixed Footer

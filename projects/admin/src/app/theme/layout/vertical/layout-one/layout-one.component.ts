@@ -12,7 +12,7 @@ import { LazyService } from '../../../service/LazyService';
 })
 export class VerticalLayoutOneComponent implements OnInit {
   headerPosition: GuruHeaderFooterPosition = 'below-fixed';
-  footerPosition: GuruHeaderFooterPosition = 'below-static';
+  footerPosition: GuruHeaderFooterPosition = 'below-fixed';
   showHeder = true;
   mlTheme: ITheme = {
     Sidebar: {
@@ -84,6 +84,9 @@ export class VerticalLayoutOneComponent implements OnInit {
   log(msg: string): void {
     console.log(msg);
   }
+  print(event: any, str: string): void {
+    console.log(event, str);
+  }
   preview(): void {
     this.runLess();
   }
@@ -114,6 +117,7 @@ export class VerticalLayoutOneComponent implements OnInit {
       (window as any).less.modifyVars(this.genVars()).then(() => {
         this.headerPosition = this.mlTheme.header['layout-header-position'].default as any;
         this.footerPosition = this.mlTheme.footer['layout-footer-position'].default as any;
+        console.log(this.footerPosition);
       });
     });
   }
