@@ -108,7 +108,6 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
       this.srvCard._footerPositionChanges.pipe(untilDestroyed(this)).subscribe(
         {
           next: (position) => {
-            console.log('srvCard', position);
             // ! 1. Remove Above Footer
             CardHelper.removeContainer(this.vcAboveFooter);
             // ! 2. Remove Fixed Footer

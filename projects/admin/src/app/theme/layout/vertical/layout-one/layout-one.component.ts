@@ -80,10 +80,6 @@ export class VerticalLayoutOneComponent implements OnInit {
   counter(i: number): Array<number> {
     return new Array(i);
   }
-
-  log(msg: string): void {
-    console.log(msg);
-  }
   print(event: any, str: string): void {
     console.log(event, str);
   }
@@ -117,7 +113,6 @@ export class VerticalLayoutOneComponent implements OnInit {
       (window as any).less.modifyVars(this.genVars()).then(() => {
         this.headerPosition = this.mlTheme.header['layout-header-position'].default as any;
         this.footerPosition = this.mlTheme.footer['layout-footer-position'].default as any;
-        console.log(this.footerPosition);
       });
     });
   }
