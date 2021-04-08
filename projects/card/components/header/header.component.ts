@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CardService } from '@guru/card/service/card.service';
 import { GuruHeaderFooterPosition } from '../../helper/card.helper';
 
@@ -8,7 +8,8 @@ import { GuruHeaderFooterPosition } from '../../helper/card.helper';
     <mat-toolbar class="guru-header-toolbar">
       <ng-content></ng-content>
     </mat-toolbar>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuruHeaderComponent implements OnChanges, AfterViewInit {
   @HostBinding('class.guru-header') GuruHeader = true;

@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewContainerRef } from '@angular/core';
 import { ContentChild, TemplateRef, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -16,6 +16,7 @@ import { CardService } from '@guru/card/service/card.service';
   selector: 'guru-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CardService]
 })
 
@@ -43,7 +44,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   @ViewChild('matNavLeft', { static: false }) private MatNavLeft!: MatSidenav;
   @ViewChild('matNavRight', { static: false }) private MatNavRight!: MatSidenav;
 
-  constructor(private srvCard: CardService) { }
+  constructor(private srvCard: CardService, private cdr: ChangeDetectorRef) { }
   ngAfterContentInit(): void {
     // ! Card View Mode
     if (this.guruSidebarRight && this.guruSidebarLeft) {
@@ -59,6 +60,15 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
     setTimeout(() => {
       if (this.guruSidebarLeft) {
         this.guruSidebarLeft.bind(this.MatNavLeft);
+        // tslint:disable-next-line: deprecation
+        this.srvCard._sidebarChanges.pipe(untilDestroyed(this)).subscribe(
+          {
+            next: (changes) => {
+              if (changes) {
+                this.cdr.markForCheck();
+              }
+            }
+          });
       }
       if (this.guruSidebarRight) {
         this.guruSidebarRight.bind(this.MatNavRight);
