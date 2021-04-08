@@ -12,6 +12,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GuruCardModule } from '@guru/card';
 import { LayoutModule } from './theme/layout/layout.module';
 import { RouterModule } from '@angular/router';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 registerLocaleData(en);
 
@@ -26,7 +29,10 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     RouterModule.forRoot([]),
     GuruCardModule,
-    LayoutModule
+    LayoutModule,
+    NzSpinModule,
+    FlexLayoutModule,
+    NzIconModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

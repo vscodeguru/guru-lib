@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Inject } from '@angular/core';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GuruHeaderFooterPosition } from '@guru/card';
 import { LazyService } from '../../../service/LazyService';
@@ -8,11 +8,14 @@ import { LazyService } from '../../../service/LazyService';
   selector: 'vertical-layout-one',
   templateUrl: './layout-one.component.html',
   styleUrls: ['./layout-one.component.less'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerticalLayoutOneComponent implements OnInit {
   headerPosition: GuruHeaderFooterPosition = 'below-fixed';
   footerPosition: GuruHeaderFooterPosition = 'below-fixed';
+  width = '250px';
+  _width = 250;
   showHeder = true;
   mlTheme: ITheme = {
     Sidebar: {
@@ -122,6 +125,10 @@ export class VerticalLayoutOneComponent implements OnInit {
     this.validHeaderKeys.forEach(key => (vars[`@${key}`] = this.mlTheme.header[key].default));
     this.validFooterKeys.forEach(key => (vars[`@${key}`] = this.mlTheme.footer[key].default));
     return vars;
+  }
+  func(): void {
+    this._width = this._width + 10;
+    this.width = this._width + 'px';
   }
 }
 
