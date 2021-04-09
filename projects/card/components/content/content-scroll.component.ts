@@ -96,7 +96,6 @@ export class GuruContentScrollComponent implements OnInit, OnDestroy, DoCheck, O
       this.zone.runOutsideAngular(() => {
         PerfectScrollbarEvents.forEach((eventName: PerfectScrollbarEvent) => {
           const eventType = eventName.replace(/([A-Z])/g, (c) => `-${c.toLowerCase()}`);
-          console.log(eventType);
           fromEvent<Event>(this.elementRef.nativeElement, eventType)
             .pipe(
               auditTime(20),
