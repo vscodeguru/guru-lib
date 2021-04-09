@@ -1,519 +1,342 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Platform } from '@angular/cdk/platform';
-import { fromEvent, Subject } from 'rxjs';
-import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 import PerfectScrollbar from 'perfect-scrollbar';
-import _ from 'lodash';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import ResizeObserver from 'resize-observer-polyfill';
 
-interface IGuruContentScrollbarOptions extends PerfectScrollbar.Options {
-  enable?: boolean;
-  updateOnRouteChange?: boolean;
-}
-export const selectorName = 'guru-content';
-@UntilDestroy()
+import { Subject, fromEvent } from 'rxjs';
+import { auditTime, takeUntil } from 'rxjs/operators';
+
+import { Component, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  NgZone, Inject, Optional, ElementRef,
+  OnInit, DoCheck, OnChanges, OnDestroy, Input, Output, EventEmitter,
+  SimpleChanges, KeyValueDiffer, KeyValueDiffers
+} from '@angular/core';
+
+import { Geometry, Position } from './content-scroll.inteface';
+
+import {
+  PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfig, PerfectScrollbarConfigInterface,
+  PerfectScrollbarEvent, PerfectScrollbarEvents
+} from './content-scroll.inteface';
+
+// tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
 })
-// tslint:disable-next-line: directive-class-suffix
-export class GuruContentScrollComponent implements OnInit, AfterViewInit, OnDestroy {
-  protected isInitialized: boolean;
-  protected isMobile: boolean;
-  protected ps: PerfectScrollbar | any;
+export class GuruContentScrollComponent implements OnInit, OnDestroy, DoCheck, OnChanges {
+  private instance: PerfectScrollbar | null = null;
 
-  // Private
-  private _animation: number | null;
-  private _enabled: boolean | '';
-  private _debouncedUpdate: any;
-  private _options!: IGuruContentScrollbarOptions;
-  private _unsubscribeAll: Subject<any>;
+  private ro: ResizeObserver | null = null;
 
-  /**
-   * Constructor
-   *
-   *  {Platform} _platform
-   *  {Router} _router
-   */
+  private timeout: number | null = null;
+  private animation: number | null = null;
+
+  private configDiff: KeyValueDiffer<string, any> | null = null;
+
+  private readonly ngDestroy: Subject<void> = new Subject();
+
+  @Input() enableScrolbar = true;
+
+  @Input() config?: PerfectScrollbarConfigInterface = {
+    suppressScrollX: true
+  };
+
+  @Output() psScrollY: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psScrollX: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() psScrollUp: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psScrollDown: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psScrollLeft: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psScrollRight: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() psYReachEnd: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psYReachStart: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psXReachEnd: EventEmitter<any> = new EventEmitter<any>();
+  @Output() psXReachStart: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(
-    public _elementRef: ElementRef,
-    private _platform: Platform,
-    private _router: Router
-  ) {
-    // Set the defaults
-    this.isInitialized = false;
-    this.isMobile = false;
+    private zone: NgZone, private differs: KeyValueDiffers,
+    public elementRef: ElementRef,
+    // tslint:disable-next-line: ban-types
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Optional() @Inject(PERFECT_SCROLLBAR_CONFIG) private defaults: PerfectScrollbarConfigInterface) { }
 
-    // Set the private defaults
-    this._animation = null;
-    this._enabled = false;
-    this._debouncedUpdate = _.debounce(this.update, 150);
-    this._options = {
-      updateOnRouteChange: true,
-      enable: false,
-      suppressScrollX: true
-    };
-    this._unsubscribeAll = new Subject();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Perfect Scrollbar options
-   *
-   *  value
-   */
-  @Input()
-  set scrollbarOptions(value: IGuruContentScrollbarOptions) {
-    // Merge the options
-    this._options = _.merge({}, this._options, value);
-
-    // Destroy and re-init the PerfectScrollbar to update its options
-    setTimeout(() => {
-      this._destroy();
-    });
-
-    if (this.scrollbarOptions.enable) {
-      setTimeout(() => {
-        this._init();
-      });
-    }
-  }
-
-  get scrollbarOptions(): IGuruContentScrollbarOptions {
-    // Return the options
-    return this._options;
-  }
-
-  /**
-   * Is enabled
-   *
-   *  {boolean | ""} value
-   */
-  @Input(selectorName)
-  set enabled(value: boolean | '') {
-    // If nothing is provided with the directive (empty string),
-    // we will take that as a true
-    if (value === '') {
-      value = true;
-    }
-
-    // Return, if both values are the same
-    if (this.enabled === value) {
-      return;
-    }
-
-    // Store the value
-    this._enabled = value;
-
-    // If enabled...
-    if (this.enabled && this.scrollbarOptions.enable) {
-      // Init the directive
-      setTimeout(() => {
-        this._init();
-      });
-    } else {
-      // Otherwise destroy it
-      this._destroy();
-    }
-  }
-
-  get enabled(): boolean | '' {
-    // Return the enabled status
-    return this._enabled;
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    // Subscribe to window resize event
-    fromEvent(window, 'resize')
-      .pipe(
-        takeUntil(this._unsubscribeAll),
-        debounceTime(150)
-      )
-      .pipe(untilDestroyed(this))
-      // tslint:disable-next-line: deprecation
-      .subscribe(() => {
-        // Update the PerfectScrollbar
-        this.update();
-      });
+
   }
 
-  /**
-   * After view init
-   */
-  ngAfterViewInit(): void {
-    // Check if scrollbars enabled or not from the main config
-    this.enabled = true;
-
-    // Scroll to the top on every route change
-    if (this.scrollbarOptions.updateOnRouteChange) {
-      this._router.events
-        .pipe(
-          takeUntil(this._unsubscribeAll),
-          filter(event => event instanceof NavigationEnd)
-        )
-        .pipe(untilDestroyed(this))
-        // tslint:disable-next-line: deprecation
-        .subscribe(() => {
-          setTimeout(() => {
-            this.scrollToTop();
-            this.update();
-          }, 0);
-        });
-    }
-  }
-
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    this._destroy();
-
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Private methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Initialize
-   *
-   */
   protected _init(): void {
-    // Return, if already initialized
-    if (this.isInitialized) {
-      return;
-    }
+    if (this.enableScrolbar && isPlatformBrowser(this.platformId)) {
+      const config = new PerfectScrollbarConfig(this.defaults);
 
-    // Check if is mobile
-    if (this._platform.ANDROID || this._platform.IOS) {
-      this.isMobile = true;
-    }
+      config.assign(this.config); // Custom configuration
 
-    // Return if it's mobile
-    if (this.isMobile) {
-      this._elementRef.nativeElement.classList.add('mobile');
-      // Return...
-      return;
-    }
+      this.zone.runOutsideAngular(() => {
+        this.instance = new PerfectScrollbar(this.elementRef.nativeElement, config);
+      });
 
-    // Set as initialized
-    this.isInitialized = true;
+      if (!this.configDiff) {
+        this.configDiff = this.differs.find(this.config || {}).create();
 
-    // Initialize the perfect-scrollbar
-    this.ps = new PerfectScrollbar(this._elementRef.nativeElement, {
-      ...this._options
-    });
-    // Unbind 'keydown' events of PerfectScrollbar since it causes an extremely
-    // high CPU usage on Angular Material inputs.
-    // Loop through all the event elements of this PerfectScrollbar instance
-    this.ps.event.eventElements.forEach((eventElement: any) => {
-      // If we hit to the element with a 'keydown' event...
-      if (typeof eventElement.handlers.keydown !== 'undefined') {
-        // Unbind it
-        eventElement.element.removeEventListener(
-          'keydown',
-          eventElement.handlers.keydown[0]
-        );
+        this.configDiff.diff(this.config || {});
       }
-    });
-  }
 
-  /**
-   * Destroy
-   *
-   */
-  protected _destroy(): void {
-    if (!this.isInitialized || !this.ps) {
-      return;
+      this.zone.runOutsideAngular(() => {
+        this.ro = new ResizeObserver(() => {
+          this.update();
+        });
+
+        if (this.elementRef.nativeElement.children[0]) {
+          this.ro.observe(this.elementRef.nativeElement.children[0]);
+        }
+
+        this.ro.observe(this.elementRef.nativeElement);
+      });
+
+      this.zone.runOutsideAngular(() => {
+        PerfectScrollbarEvents.forEach((eventName: PerfectScrollbarEvent) => {
+          const eventType = eventName.replace(/([A-Z])/g, (c) => `-${c.toLowerCase()}`);
+          fromEvent<Event>(this.elementRef.nativeElement, eventType)
+            .pipe(
+              auditTime(20),
+              takeUntil(this.ngDestroy)
+            )
+            // tslint:disable-next-line: deprecation
+            .subscribe((event: Event) => {
+              this[eventName].emit(event);
+            });
+        });
+      });
     }
-
-    // Destroy the perfect-scrollbar
-    this.ps.destroy();
-
-    // Clean up
-    this.ps = null;
-    this.isInitialized = false;
   }
 
-  /**
-   * Update scrollbars on window resize
-   *
-   */
-  @HostListener('window:resize')
-  _updateOnResize(): void {
-    this._debouncedUpdate();
-  }
+  ngOnDestroy(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.ngDestroy.next();
+      this.ngDestroy.complete();
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
+      if (this.ro) {
+        this.ro.disconnect();
+      }
 
-  /**
-   * Document click
-   *
-   *  {Event} event
-   */
-  @HostListener('document:click')
-  documentClick(): void {
-    if (!this.isInitialized || !this.ps) {
-      return;
+      if (this.timeout && typeof window !== 'undefined') {
+        window.clearTimeout(this.timeout);
+      }
+
+      this.zone.runOutsideAngular(() => {
+        if (this.instance) {
+          this.instance.destroy();
+        }
+      });
+
+      this.instance = null;
     }
-
-    // Update the scrollbar on document click..
-    // This isn't the most elegant solution but there is no other way
-    // of knowing when the contents of the scrollable container changes.
-    // Therefore, we update scrollbars on every document click.
-    this.ps.update();
   }
 
-  /**
-   * Update the scrollbar
-   */
-  protected update(): void {
-    if (!this.isInitialized) {
-      return;
+  ngDoCheck(): void {
+    if (this.enableScrolbar && this.configDiff && isPlatformBrowser(this.platformId)) {
+      const changes = this.configDiff.diff(this.config || {});
+
+      if (changes) {
+        this.ngOnDestroy();
+
+        this.ngOnInit();
+      }
     }
-
-    // Update the perfect-scrollbar
-    this.ps.update();
   }
 
-  /**
-   * Destroy the scrollbar
-   */
-  protected destroy(): void {
-    this.ngOnDestroy();
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (changes.enableScrolbar && !changes.enableScrolbar.isFirstChange() && isPlatformBrowser(this.platformId)) {
+      if (changes.enableScrolbar.currentValue !== changes.enableScrolbar.previousValue) {
+        if (changes.enableScrolbar.currentValue === false) {
+          this.ngOnDestroy();
+        } else if (changes.enableScrolbar.currentValue === true) {
+          this.ngOnInit();
+        }
+      }
+    }
   }
 
-  /**
-   * Returns the geometry of the scrollable element
-   *
-   *  prefix
-   */
-  protected geometry(prefix: string = 'scroll'): CardScrollerGuruGeometry {
-    return new CardScrollerGuruGeometry(
-      this._elementRef.nativeElement[prefix + 'Left'],
-      this._elementRef.nativeElement[prefix + 'Top'],
-      this._elementRef.nativeElement[prefix + 'Width'],
-      this._elementRef.nativeElement[prefix + 'Height']
+  public ps(): PerfectScrollbar | null {
+    return this.instance;
+  }
+
+  public update(): void {
+    if (typeof window !== 'undefined') {
+      if (this.timeout) {
+        window.clearTimeout(this.timeout);
+      }
+
+      this.timeout = window.setTimeout(() => {
+        if (this.enableScrolbar && this.configDiff) {
+          try {
+            this.zone.runOutsideAngular(() => {
+              if (this.instance) {
+                this.instance.update();
+              }
+            });
+          } catch (error) {
+            // Update can be finished after destroy so catch errors
+          }
+        }
+      }, 0);
+    }
+  }
+
+  public geometry(prefix: string = 'scroll'): Geometry {
+    return new Geometry(
+      this.elementRef.nativeElement[prefix + 'Left'],
+      this.elementRef.nativeElement[prefix + 'Top'],
+      this.elementRef.nativeElement[prefix + 'Width'],
+      this.elementRef.nativeElement[prefix + 'Height']
     );
   }
 
-  /**
-   * Returns the position of the scrollable element
-   *
-   *  absolute
-   */
-  protected position(absolute: boolean = false): CardScrollerGuruPosition {
-    if (!absolute && this.ps) {
-      return new CardScrollerGuruPosition(this.ps.reach.x || 0, this.ps.reach.y || 0);
+  public position(absolute: boolean = false): Position {
+    if (!absolute && this.instance) {
+      return new Position(
+        this.instance.reach.x || 0,
+        this.instance.reach.y || 0
+      );
     } else {
-      return new CardScrollerGuruPosition(
-        this._elementRef.nativeElement.scrollLeft,
-        this._elementRef.nativeElement.scrollTop
+      return new Position(
+        this.elementRef.nativeElement.scrollLeft,
+        this.elementRef.nativeElement.scrollTop
       );
     }
   }
 
-  /**
-   * Scroll to
-   *
-   *  x
-   *  y
-   *  speed
-   */
-  protected scrollTo(x: number, y?: number, speed?: number): void {
-    if (y == null && speed == null) {
-      this.animateScrolling('scrollTop', x, speed);
-    } else {
-      if (x != null) {
-        this.animateScrolling('scrollLeft', x, speed);
-      }
+  public scrollable(direction: string = 'any'): boolean {
+    const element = this.elementRef.nativeElement;
 
-      if (y != null) {
-        this.animateScrolling('scrollTop', y, speed);
+    if (direction === 'any') {
+      return element.classList.contains('ps--active-x') ||
+        element.classList.contains('ps--active-y');
+    } else if (direction === 'both') {
+      return element.classList.contains('ps--active-x') &&
+        element.classList.contains('ps--active-y');
+    } else {
+      return element.classList.contains('ps--active-' + direction);
+    }
+  }
+
+  public scrollTo(x: number, y?: number, speed?: number): void {
+    if (this.enableScrolbar) {
+      if (y == null && speed == null) {
+        this.animateScrolling('scrollTop', x, speed);
+      } else {
+        if (x != null) {
+          this.animateScrolling('scrollLeft', x, speed);
+        }
+
+        if (y != null) {
+          this.animateScrolling('scrollTop', y, speed);
+        }
       }
     }
   }
 
-  /**
-   * Scroll to X
-   *
-   *  {number} x
-   *  {number} speed
-   */
-  protected scrollToX(x: number, speed?: number): void {
+  public scrollToX(x: number, speed?: number): void {
     this.animateScrolling('scrollLeft', x, speed);
   }
 
-  /**
-   * Scroll to Y
-   *
-   *  {number} y
-   *  {number} speed
-   */
-  protected scrollToY(y: number, speed?: number): void {
+  public scrollToY(y: number, speed?: number): void {
     this.animateScrolling('scrollTop', y, speed);
   }
 
-  /**
-   * Scroll to top
-   *
-   *  {number} offset
-   *  {number} speed
-   */
-  protected scrollToTop(offset?: number, speed?: number): void {
-    this.animateScrolling('scrollTop', offset || 0, speed);
+  public scrollToTop(offset?: number, speed?: number): void {
+    this.animateScrolling('scrollTop', (offset || 0), speed);
   }
 
-  /**
-   * Scroll to left
-   *
-   *  {number} offset
-   *  {number} speed
-   */
-  protected scrollToLeft(offset?: number, speed?: number): void {
-    this.animateScrolling('scrollLeft', offset || 0, speed);
+  public scrollToLeft(offset?: number, speed?: number): void {
+    this.animateScrolling('scrollLeft', (offset || 0), speed);
   }
 
-  /**
-   * Scroll to right
-   *
-   *  {number} offset
-   *  {number} speed
-   */
-  protected scrollToRight(offset?: number, speed?: number): void {
-    const left =
-      this._elementRef.nativeElement.scrollWidth - this._elementRef.nativeElement.clientWidth;
+  public scrollToRight(offset?: number, speed?: number): void {
+    const left = this.elementRef.nativeElement.scrollWidth -
+      this.elementRef.nativeElement.clientWidth;
+
     this.animateScrolling('scrollLeft', left - (offset || 0), speed);
   }
 
-  /**
-   * Scroll to bottom
-   *
-   *  {number} offset
-   *  {number} speed
-   */
-  protected scrollToBottom(offset?: number, speed?: number): void {
-    const top =
-      this._elementRef.nativeElement.scrollHeight - this._elementRef.nativeElement.clientHeight;
+  public scrollToBottom(offset?: number, speed?: number): void {
+    const top = this.elementRef.nativeElement.scrollHeight -
+      this.elementRef.nativeElement.clientHeight;
+
     this.animateScrolling('scrollTop', top - (offset || 0), speed);
   }
 
-  /**
-   * Scroll to element
-   *
-   *  qs
-   *  offset
-   *  speed
-   */
-  protected scrollToElement(qs: string, offset?: number, speed?: number): void {
-    const element = this._elementRef.nativeElement.querySelector(qs);
-
-    if (!element) {
-      return;
+  public scrollToElement(element: HTMLElement | string, offset?: number, speed?: number): void {
+    if (typeof element === 'string') {
+      element = this.elementRef.nativeElement.querySelector(element) as HTMLElement;
     }
 
-    const elementPos = element.getBoundingClientRect();
-    const scrollerPos = this._elementRef.nativeElement.getBoundingClientRect();
+    if (element) {
+      const elementPos = element.getBoundingClientRect();
 
-    if (this._elementRef.nativeElement.classList.contains('ps--active-x')) {
-      const currentPos = this._elementRef.nativeElement.scrollLeft;
-      const position = elementPos.left - scrollerPos.left + currentPos;
+      const scrollerPos = this.elementRef.nativeElement.getBoundingClientRect();
 
-      this.animateScrolling('scrollLeft', position + (offset || 0), speed);
-    }
+      if (this.elementRef.nativeElement.classList.contains('ps--active-x')) {
+        const currentPos = this.elementRef.nativeElement.scrollLeft;
 
-    if (this._elementRef.nativeElement.classList.contains('ps--active-y')) {
-      const currentPos = this._elementRef.nativeElement.scrollTop;
-      const position = elementPos.top - scrollerPos.top + currentPos;
+        const position = elementPos.left - scrollerPos.left + currentPos;
 
-      this.animateScrolling('scrollTop', position + (offset || 0), speed);
+        this.animateScrolling('scrollLeft', position + (offset || 0), speed);
+      }
+
+      if (this.elementRef.nativeElement.classList.contains('ps--active-y')) {
+        const currentPos = this.elementRef.nativeElement.scrollTop;
+
+        const position = elementPos.top - scrollerPos.top + currentPos;
+
+        this.animateScrolling('scrollTop', position + (offset || 0), speed);
+      }
     }
   }
 
-  /**
-   * Animate scrolling
-   *
-   *  target
-   *  value
-   *  speed
-   */
-  protected animateScrolling(target: string, value: number, speed?: number): void {
-    if (this._animation) {
-      window.cancelAnimationFrame(this._animation);
-      this._animation = null;
+  private animateScrolling(target: string, value: number, speed?: number): void {
+    if (this.animation) {
+      window.cancelAnimationFrame(this.animation);
+
+      this.animation = null;
     }
 
     if (!speed || typeof window === 'undefined') {
-      this._elementRef.nativeElement[target] = value;
-    } else if (value !== this._elementRef.nativeElement[target]) {
+      this.elementRef.nativeElement[target] = value;
+    } else if (value !== this.elementRef.nativeElement[target]) {
       let newValue = 0;
       let scrollCount = 0;
 
       let oldTimestamp = performance.now();
-      let oldValue = this._elementRef.nativeElement[target];
+      let oldValue = this.elementRef.nativeElement[target];
 
       const cosParameter = (oldValue - value) / 2;
 
       const step = (newTimestamp: number) => {
         scrollCount += Math.PI / (speed / (newTimestamp - oldTimestamp));
+
         newValue = Math.round(value + cosParameter + cosParameter * Math.cos(scrollCount));
 
         // Only continue animation if scroll position has not changed
-        if (this._elementRef.nativeElement[target] === oldValue) {
+        if (this.elementRef.nativeElement[target] === oldValue) {
           if (scrollCount >= Math.PI) {
             this.animateScrolling(target, value, 0);
           } else {
-            this._elementRef.nativeElement[target] = newValue;
+            this.elementRef.nativeElement[target] = newValue;
 
             // On a zoomed out page the resulting offset may differ
-            oldValue = this._elementRef.nativeElement[target];
+            oldValue = this.elementRef.nativeElement[target];
+
             oldTimestamp = newTimestamp;
 
-            this._animation = window.requestAnimationFrame(step);
+            this.animation = window.requestAnimationFrame(step);
           }
         }
       };
 
       window.requestAnimationFrame(step);
     }
-  }
-}
-
-export class CardScrollerGuruGeometry {
-  public x: number;
-  public y: number;
-
-  public w: number;
-  public h: number;
-
-  constructor(x: number, y: number, w: number, h: number) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
   }
 }
 

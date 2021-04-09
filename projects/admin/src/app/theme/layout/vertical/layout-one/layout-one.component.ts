@@ -30,7 +30,10 @@ export class VerticalLayoutOneComponent implements OnInit {
     console.log(event, str);
   }
   preview(): void {
-    this.srvTheme.registerTheme(this.mlTheme);
+    this.srvTheme.registerTheme(this.mlTheme).then(() => {
+      this.headerPosition = this.mlTheme.header['layout-header-position'].default as any;
+      this.footerPosition = this.mlTheme.footer['layout-footer-position'].default as any;
+    });
   }
   func(): void {
     this._width = this._width + 10;

@@ -41,7 +41,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "postinstall": "ngcc",
+    "postinstall": "ngcc && node patch-browser.js",
     "e2e": "ng e2e",
     "*** Build ***": "",
     "build:card": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build card --configuration=production",

@@ -10,7 +10,7 @@ export interface LazyResult {
 }
 
 @Injectable()
-export class LazyLoadService {
+export class LazyAssetsService {
   private list: { [key: string]: boolean } = {};
   private cached: { [key: string]: LazyResult } = {};
   private _notify: BehaviorSubject<LazyResult[]> = new BehaviorSubject<LazyResult[]>([]);

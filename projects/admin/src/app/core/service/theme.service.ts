@@ -1,8 +1,6 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import _ from 'lodash';
 import { ITheme } from '../model';
-import { LazyLoadService } from './lazy-load.service';
 
 @Injectable()
 export class ThemeService {
@@ -57,39 +55,17 @@ export class ThemeService {
     Object.keys(them?.footer || {}).forEach(key => (vars[`@${key}`] = them.footer[key].default));
     return vars;
   }
-  constructor(
-    private lazy: LazyLoadService,
-    @Inject(DOCUMENT) private doc: any
-  ) { }
+  constructor() { }
 
-  private loadLess(): Promise<void> {
-    if (this.isLessLoaded) {
-      return Promise.resolve();
-    }
-    return this.lazy
-      .loadStyle('./assets/theme/menu.less', 'stylesheet/less')
-      .then(() => {
-        const lessConfigNode = this.doc.createElement('script');
-        lessConfigNode.innerHTML = `
-          window.less = {
-            async: true,
-            env: 'production',
-            javascriptEnabled: true
-          };
-        `;
-        this.doc.body.appendChild(lessConfigNode);
-      })
-      .then(() => this.lazy.loadScript('https://gw.alipayobjects.com/os/lib/less.js/3.8.1/less.min.js'))
-      .then(() => {
-        this.isLessLoaded = true;
-      });
-  }
   public registerTheme(them: ITheme | undefined): Promise<void> {
     const mergedTheme = _.merge(this._themeDefaults, them);
     return new Promise((resolve, reject) => {
-      this.loadLess().then(() => {
-        (window as any).less.modifyVars(this.genThemeVariables(mergedTheme)).then(() => { resolve(); });
-      }).catch(() => { reject(); });
+      try {
+        (window as any).less.modifyVars(this.genThemeVariables(mergedTheme)).then(() => { resolve(); }).catch(() => { reject(); });
+      } catch (error) {
+        console.log(error);
+      }
+      resolve();
     });
 
 
