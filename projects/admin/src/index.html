@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Admin</title>
@@ -9,8 +10,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .splash-guru {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: #0000001c;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      place-content: center;
+      align-items: center;
+      cursor: wait;
+
+
+    }
+
+    .splash-guru .splash-round {
+      background: #fff;
+      padding: 10px;
+      border-radius: 50%;
+      /* border: 1px solid #ababab; */
+      box-shadow: 2px 2px 7px 3px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+    .splash-guru .splash-round .logo {
+      height: 100px;
+    }
+  </style>
 </head>
+
 <body>
+  <splash-screen-guru id="splash-screen-guru" class="splash-guru">
+    <div class="splash-round">
+      <img class="logo" src="/assets/images/logo/matrix-logo-round-spinner.svg" alt="">
+    </div>
+  </splash-screen-guru>
   <app-root></app-root>
 </body>
+
 </html>
