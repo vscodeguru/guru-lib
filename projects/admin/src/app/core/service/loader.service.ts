@@ -4,10 +4,8 @@ import { Inject, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, take } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class LoadingService {
+@Injectable()
+export class LoaderService {
   splashScreenEl: any;
   player!: AnimationPlayer;
 

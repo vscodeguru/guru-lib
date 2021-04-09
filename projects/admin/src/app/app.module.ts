@@ -7,7 +7,7 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GuruCardModule } from '@guru/card';
 import { LayoutModule } from './theme/layout/layout.module';
@@ -15,7 +15,13 @@ import { RouterModule } from '@angular/router';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { LazyLoadService, StartupService, ThemeService } from './core/service';
+import {
+  StartupService,
+  HttpLoaderInterceptor,
+  LoaderService,
+  LazyAssetsService,
+  ThemeService
+} from './core/service';
 
 
 export function StartupServiceFactory(startupService: StartupService): any {
@@ -42,7 +48,7 @@ registerLocaleData(en);
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
-    LazyLoadService,
+    LazyAssetsService,
     ThemeService,
     StartupService,
     {
@@ -50,7 +56,9 @@ registerLocaleData(en);
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true
-    }
+    },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpLoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

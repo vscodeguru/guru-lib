@@ -60,7 +60,7 @@
   </nz-form-control>
   <nz-form-control *ngIf="config.ctrlType === 'option'">
     <nz-select [(ngModel)]="config.default">
-      <nz-option *ngFor="let opt of config.optValues" [nzValue]="opt.value" [nzLabel]="opt.text">
+      <nz-option *ngFor="let opt of config.options" [nzValue]="opt.value" [nzLabel]="opt.text">
       </nz-option>
     </nz-select>
   </nz-form-control>

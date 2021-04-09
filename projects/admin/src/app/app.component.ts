@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { LoadingService } from './core/service/loading.service';
+import { LoaderService } from './core/service/loader.service';
 
 @UntilDestroy()
 @Component({
@@ -12,7 +12,7 @@ import { LoadingService } from './core/service/loading.service';
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'admin';
   constructor(
-    private _loading: LoadingService
+    private _loading: LoaderService
   ) { }
 
   ngOnInit(): void { }
