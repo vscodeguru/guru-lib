@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  align-items: stretch;
+  place-content: stretch space-between;
+
+  div.action-container {
+    margin: unset;
+    list-style-type: none;
+    div.action {
+      display: flex;
+      place-content: center;
+      align-items: center;
+      min-width: 40px;
+      height: 100%;
+      .ant-btn-icon-only {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+      }
+      &.user-action {
+        .user-desc {
+          margin-right: 5px;
+          .name {
+            font-size: 12px;
+            line-height: 12px;
+          }
+          .designation {
+            font-size: 10px;
+            line-height: 10px;
+            color: #3dcdc6;
+          }
+        }
+      }
+      &.sidebar-toggle,
+      &.user-action {
+        padding: 0 10px;
+        cursor: pointer;
+        &:hover {
+          background-color: hsla(0, 0, 0, 0.06);
+        }
+      }
+    }
+  }
+}

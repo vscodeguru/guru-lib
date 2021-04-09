@@ -1,5 +1,5 @@
 import {
-  AfterContentChecked, AfterViewInit, Component,
+  AfterContentChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component,
   EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -7,10 +7,12 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { GuruSidebarMode, CardHelper, GuruBreakpointMode } from '../../helper/card.helper';
 import * as _ from 'lodash';
+import { CardService } from '@guru/card/service/card.service';
 @UntilDestroy()
 @Component({
   selector: 'guru-sidebar',
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
   private _nav!: MatSidenav;
@@ -21,10 +23,10 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
   @Input() mode!: GuruSidebarMode;
   @Input() opened!: boolean;
 
-  @Input() guruXs!: GuruBreakpointMode;
-  @Input() guruSm!: GuruBreakpointMode;
-  @Input() guruMd!: GuruBreakpointMode;
-  @Input() guruLg!: GuruBreakpointMode;
+  @Input() guruXs: GuruBreakpointMode = { opened: false, mode: 'over' };
+  @Input() guruSm: GuruBreakpointMode = { opened: false, mode: 'over' };
+  @Input() guruMd: GuruBreakpointMode = { opened: false, mode: 'over' };
+  @Input() guruLg: GuruBreakpointMode = { opened: false, mode: 'over' };
   @Input() guruXl!: GuruBreakpointMode;
 
   // Output
@@ -34,17 +36,19 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
 
   // LifeCycle Envent
   constructor(
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private cdr: ChangeDetectorRef,
+    private srvCard: CardService
   ) { }
-  ngOnChanges(_changes: SimpleChanges): void { }
+  ngOnChanges(_changes: SimpleChanges): void { this.srvCard._sidebarChanges.next(true); }
   ngOnInit(): void { }
   ngAfterContentChecked(): void { }
   ngAfterViewInit(): void { }
   ngOnDestroy(): void { }
   // Methods
-  close(): void { this._nav.close(); }
-  open(): void { this._nav.open(); }
-  toggle(): void { this._nav.toggle(); }
+  close(): void { this._nav.close().then(() => { this.cdr.markForCheck(); }); this.srvCard._sidebarChanges.next(true); }
+  open(): void { this._nav.open().then(() => { this.cdr.markForCheck(); }); this.srvCard._sidebarChanges.next(true); }
+  toggle(): void { this._nav.toggle().then(() => { this.cdr.markForCheck(); }); this.srvCard._sidebarChanges.next(true); }
 
   bind(nav: MatSidenav): void {
     this._nav = nav;
@@ -55,6 +59,9 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
     this.opened = !CardHelper.isValidObj(this.opened) ? true : this.opened;
 
     this.guruLg = { mode: this.mode, opened: this.opened };
+    if (!CardHelper.isValidObj(this.guruXl)) {
+      this.guruXl = { mode: this.mode, opened: this.opened };
+    }
 
     this._nav.mode = this.guruLg.mode;
     this._nav.autoFocus = this.autoFocus;
@@ -66,7 +73,7 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
     // tslint:disable: deprecation
     this._nav.openedChange.pipe(untilDestroyed(this)).subscribe(
       {
-        next: (value) => this.openedChange.next(value)
+        next: (value) => { this.openedChange.next(value); }
       }
     );
     this._nav.openedStart.pipe(untilDestroyed(this)).subscribe(
@@ -126,27 +133,33 @@ export class GuruSidebarComponent implements OnChanges, OnInit, AfterContentChec
 
 @Component({
   selector: 'guru-sidebar-left',
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class GuruSidebarLeftComponent extends GuruSidebarComponent {
   constructor(
-    _breakpointObserver: BreakpointObserver
+    _breakpointObserver: BreakpointObserver,
+    cdr: ChangeDetectorRef,
+    srvCard: CardService
   ) {
-    super(_breakpointObserver);
+    super(_breakpointObserver, cdr, srvCard);
   }
 }
 
 
 @Component({
   selector: 'guru-sidebar-right',
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuruSidebarRightComponent extends GuruSidebarComponent {
   constructor(
-    _breakpointObserver: BreakpointObserver
+    _breakpointObserver: BreakpointObserver,
+    cdr: ChangeDetectorRef,
+    srvCard: CardService
   ) {
-    super(_breakpointObserver);
+    super(_breakpointObserver, cdr, srvCard);
   }
 }
 

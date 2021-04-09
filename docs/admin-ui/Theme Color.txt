@@ -1,0 +1,13 @@
+Blue Color : #323484
+Red Color : #ea4335
+Grey Color : #f3f6f9
+Black Icon Color : #313949
+Text Gray Color : #616161
+Black Button Color : #181c32
+Green Search Icon Color : #1bc5bd
+Cyan Notification Icon Color : #3699ff
+Dark Yellow Setting Color : #fead13
+Text Hint Color : #d9d9d9
+Textbox Border Color : #d9d9d9
+
+

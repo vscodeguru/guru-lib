@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { AfterViewInit, ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CardService } from '@guru/card/service/card.service';
 import { GuruHeaderFooterPosition } from '../../helper/card.helper';
 
 @Component({
@@ -8,18 +8,19 @@ import { GuruHeaderFooterPosition } from '../../helper/card.helper';
     <mat-toolbar class="guru-footer-toolbar">
       <ng-content></ng-content>
     </mat-toolbar>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuruFooterComponent implements OnChanges, AfterViewInit {
   @HostBinding('class.guru-footer') GuruFooter = true;
   @Input() position: GuruHeaderFooterPosition = 'above-fixed';
-  readonly _positionChanges = new BehaviorSubject<GuruHeaderFooterPosition>(this.position);
+  constructor(private srvCard: CardService) { }
   ngAfterViewInit(): void {
-    this._positionChanges.next(this.position);
+    this.srvCard._footerPositionChanges.next(this.position);
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.position.currentValue !== changes.position.previousValue) {
-      this._positionChanges.next(this.position);
+      this.srvCard._footerPositionChanges.next(this.position);
     }
   }
 }

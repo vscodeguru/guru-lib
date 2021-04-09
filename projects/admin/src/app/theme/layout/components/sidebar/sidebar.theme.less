@@ -1,0 +1,36 @@
+matrix-sidebar-left {
+  guru-card {
+    font-weight: 500;
+    guru-header {
+      .mat-toolbar {
+        background-color: @layout-sider-background;
+      }
+    }
+    guru-content {
+      background-color: @layout-sider-background;
+      &.no-padding.guru-content-wrapper > div.guru-content {
+        padding: 0px;
+      }
+    }
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    .logo {
+      width: 50px;
+      height: 50px;
+      padding: 5px;
+      background: #fff;
+      border-radius: 10px;
+    }
+    .name {
+      font-size: 30px;
+      color: #ffffff;
+      margin-left: 5px;
+      font-weight: bold;
+    }
+  }
+}

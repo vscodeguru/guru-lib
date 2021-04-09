@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewContainerRef } from '@angular/core';
 import { ContentChild, TemplateRef, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -8,13 +8,16 @@ import { GuruHeaderComponent } from '../header';
 import { GuruContentComponent } from '../content';
 import { GuruFooterComponent } from '../footer';
 import { GuruSidebarLeftComponent, GuruSidebarRightComponent } from '../sidebar';
+import { CardService } from '@guru/card/service/card.service';
 
 
 @UntilDestroy()
 @Component({
   selector: 'guru-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CardService]
 })
 
 export class GuruCardComponent implements AfterContentInit, AfterViewInit {
@@ -41,7 +44,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   @ViewChild('matNavLeft', { static: false }) private MatNavLeft!: MatSidenav;
   @ViewChild('matNavRight', { static: false }) private MatNavRight!: MatSidenav;
 
-  constructor() { }
+  constructor(private srvCard: CardService, private cdr: ChangeDetectorRef) { }
   ngAfterContentInit(): void {
     // ! Card View Mode
     if (this.guruSidebarRight && this.guruSidebarLeft) {
@@ -57,6 +60,15 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
     setTimeout(() => {
       if (this.guruSidebarLeft) {
         this.guruSidebarLeft.bind(this.MatNavLeft);
+        // tslint:disable-next-line: deprecation
+        this.srvCard._sidebarChanges.pipe(untilDestroyed(this)).subscribe(
+          {
+            next: (changes) => {
+              if (changes) {
+                this.cdr.markForCheck();
+              }
+            }
+          });
       }
       if (this.guruSidebarRight) {
         this.guruSidebarRight.bind(this.MatNavRight);
@@ -74,7 +86,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   private _headerHandler(): void {
     if (this.guruHeader) {
       // tslint:disable-next-line: deprecation
-      this.guruHeader._positionChanges.pipe(untilDestroyed(this)).subscribe(
+      this.srvCard._headerPositionChanges.pipe(untilDestroyed(this)).subscribe(
         {
           next: (position) => {
             // ! 1. Remove Above Header
@@ -103,7 +115,7 @@ export class GuruCardComponent implements AfterContentInit, AfterViewInit {
   private _footerHandler(): void {
     if (this.guruFooter) {
       // tslint:disable-next-line: deprecation
-      this.guruFooter._positionChanges.pipe(untilDestroyed(this)).subscribe(
+      this.srvCard._footerPositionChanges.pipe(untilDestroyed(this)).subscribe(
         {
           next: (position) => {
             // ! 1. Remove Above Footer

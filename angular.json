@@ -149,7 +149,7 @@
         "@schematics/angular:component": {
           "inlineTemplate": false,
           "inlineStyle": false,
-          "style": "scss",
+          "style": "less",
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -192,11 +192,17 @@
             "aot": true,
             "assets": [
               "projects/admin/src/favicon.ico",
-              "projects/admin/src/assets"
+              "projects/admin/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "projects/admin/src/theme.less",
-              "projects/admin/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [

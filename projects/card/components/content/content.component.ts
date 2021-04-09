@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, HostBinding, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, HostBinding, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { GuruContentScrollComponent } from './content-scroll.component';
 
 @Component({
@@ -17,7 +17,8 @@ import { GuruContentScrollComponent } from './content-scroll.component';
   <ng-container #vcStaticFooter>
   </ng-container>
   <!-- Static Footer End -->
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GuruContentComponent extends GuruContentScrollComponent implements AfterContentInit, AfterViewInit {
   @HostBinding('class.guru-content-wrapper') GuruContentWrapper = true;

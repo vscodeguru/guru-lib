@@ -1,1 +1,40 @@
-<p>footer works!</p>
+<div style="height: 400px; width: 600px;">
+  <guru-card>
+    <guru-header></guru-header>
+    <guru-content>
+      <!-- <form nz-form [nzLayout]="'vertical'">
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+          <div nz-col [nzSpan]="6">
+            <h3>Sidebar Config</h3>
+            <hr />
+            <nz-form-item *ngFor="let key of validSidebarKeys">
+              <ng-container [ngTemplateOutlet]="configTemplate"
+                [ngTemplateOutletContext]="{ $implicit: mlTheme.Sidebar[key], isHorizontal: false}">
+              </ng-container>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="6">
+            <h3>Header Config</h3>
+            <hr />
+            <nz-form-item *ngFor="let key of validHeaderKeys">
+              <ng-container [ngTemplateOutlet]="configTemplate"
+                [ngTemplateOutletContext]="{ $implicit: mlTheme.header[key], isHorizontal: false}">
+              </ng-container>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="6">
+            <h3>Footer Config</h3>
+            <hr />
+            <nz-form-item *ngFor="let key of validFooterKeys">
+              <ng-container [ngTemplateOutlet]="configTemplate"
+                [ngTemplateOutletContext]="{ $implicit: mlTheme.footer[key], isHorizontal: false}">
+              </ng-container>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+      <button (click)="preview()">Calc</button> -->
+    </guru-content>
+    <guru-footer [position]="'below-static'" id="1"></guru-footer>
+  </guru-card>
+</div>
