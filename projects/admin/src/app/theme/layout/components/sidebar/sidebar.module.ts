@@ -7,8 +7,8 @@ import { GuruCardModule } from '@guru/card';
 
 @NgModule({
   imports: [NzMenuModule, NzIconModule, GuruCardModule],
-  exports: [MatrixSidebarLeftComponent],
   declarations: [MatrixSidebarLeftComponent],
+  exports: [MatrixSidebarLeftComponent],
   providers: [],
 })
 export class MatrixSidebarModule { }

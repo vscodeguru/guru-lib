@@ -14,7 +14,7 @@
         <div nz-col [nzSpan]="6">
           <h3>Sidebar Config</h3>
           <hr />
-          <nz-form-item *ngFor="let key of validSidebarKeys">
+          <nz-form-item *ngFor="let key of getKeys(mlTheme?.Sidebar)">
             <ng-container [ngTemplateOutlet]="configTemplate"
               [ngTemplateOutletContext]="{ $implicit: mlTheme.Sidebar[key], isHorizontal: false}">
             </ng-container>
@@ -23,7 +23,7 @@
         <div nz-col [nzSpan]="6">
           <h3>Header Config</h3>
           <hr />
-          <nz-form-item *ngFor="let key of validHeaderKeys">
+          <nz-form-item *ngFor="let key of getKeys(mlTheme?.header)">
             <ng-container [ngTemplateOutlet]="configTemplate"
               [ngTemplateOutletContext]="{ $implicit: mlTheme.header[key], isHorizontal: false}">
             </ng-container>
@@ -32,7 +32,7 @@
         <div nz-col [nzSpan]="6">
           <h3>Footer Config</h3>
           <hr />
-          <nz-form-item *ngFor="let key of validFooterKeys">
+          <nz-form-item *ngFor="let key of getKeys(mlTheme?.footer)">
             <ng-container [ngTemplateOutlet]="configTemplate"
               [ngTemplateOutletContext]="{ $implicit: mlTheme.footer[key], isHorizontal: false}">
             </ng-container>
