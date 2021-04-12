@@ -17,7 +17,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   StartupService,
-  HttpLoaderInterceptor,
   LoaderService,
   LazyAssetsService,
   ThemeService
@@ -58,7 +57,7 @@ registerLocaleData(en);
       multi: true
     },
     LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpLoaderInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderService, multi: true }
   ],
   bootstrap: [AppComponent]
 })
