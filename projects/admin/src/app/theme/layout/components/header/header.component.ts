@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'projects/admin/src/app/core';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatrixHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private srvTheme: ThemeService) { }
 
   ngOnInit(): void {
   }
-
+  toggleSidebar(): void {
+    this.srvTheme.toggle('left');
+  }
 }

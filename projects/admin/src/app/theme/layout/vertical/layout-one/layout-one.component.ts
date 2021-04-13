@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { GuruHeaderFooterPosition } from '@guru/card';
-import { IStyle, ITheme, ThemeService } from 'projects/admin/src/app/core';
+import { GuruHeaderFooterPosition, GuruSidebarLeftComponent, GuruSidebarRightComponent } from '@guru/card';
+import { ITheme, ThemeService } from 'projects/admin/src/app/core';
 @Component({
   selector: 'vertical-layout-one',
   templateUrl: './layout-one.component.html',
@@ -9,34 +9,43 @@ import { IStyle, ITheme, ThemeService } from 'projects/admin/src/app/core';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VerticalLayoutOneComponent implements OnInit {
+export class VerticalLayoutOneComponent implements OnInit, AfterViewInit {
   headerPosition: GuruHeaderFooterPosition = 'below-fixed';
   footerPosition: GuruHeaderFooterPosition = 'below-fixed';
-  width = '250px';
-  _width = 250;
-  showHeder = true;
-  mlTheme: ITheme;
+  sidebarLeftWidth = '250px';
+  mlTheme!: ITheme;
   data: any = {};
-  constructor(private srvTheme: ThemeService) { this.mlTheme = srvTheme.themeDefaults; }
+  @ViewChild('guruSidebarLeft') guruSidebarLeft!: GuruSidebarLeftComponent;
+  @ViewChild('guruSidebarRight') guruSidebarRight!: GuruSidebarRightComponent;
+  constructor(private srvTheme: ThemeService) {
+    // tslint:disable-next-line: deprecation
+    this.srvTheme.themeRegistered.subscribe(
+      {
+        next: (theme) => {
+          if (theme !== undefined) {
+            this.mlTheme = theme;
+            this.headerPosition = this.mlTheme.header['layout-header-position'].default as any;
+            this.footerPosition = this.mlTheme.footer['layout-footer-position'].default as any;
+            this.headerPosition = this.mlTheme.header['layout-header-position'].default as any;
+            this.sidebarLeftWidth = this.mlTheme.sidebar['layout-sider-width'].default as any;
+          }
+        }
+      }
+    );
+  }
   ngOnInit(): void { }
-
-  getKeys(data: { [key: string]: IStyle }): string[] {
-    return Object.keys(data || {});
-  }
-  counter(i: number): Array<number> {
-    return new Array(i);
-  }
-  print(event: any, str: string): void {
-    console.log(event, str);
-  }
-  preview(): void {
-    this.srvTheme.registerTheme(this.mlTheme).then(() => {
-      this.headerPosition = this.mlTheme.header['layout-header-position'].default as any;
-      this.footerPosition = this.mlTheme.footer['layout-footer-position'].default as any;
-    });
-  }
-  func(): void {
-    this._width = this._width + 10;
-    this.width = this._width + 'px';
+  ngAfterViewInit(): void {
+    // tslint:disable-next-line: deprecation
+    this.srvTheme.toggleChanged.subscribe(
+      {
+        next: (nav) => {
+          if (nav === 'left') {
+            this.guruSidebarLeft.toggle();
+          } else if (nav === 'right') {
+            this.guruSidebarRight.toggle();
+          }
+        }
+      }
+    );
   }
 }
