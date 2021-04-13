@@ -1,11 +1,15 @@
 import { animate, AnimationBuilder, AnimationPlayer, style } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, take } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
+import { filter, take, finalize } from 'rxjs/operators';
 @Injectable()
-export class LoaderService {
+export class LoaderService implements HttpInterceptor {
+
+  private count = 0;
+
   splashScreenEl: any;
   player!: AnimationPlayer;
 
@@ -41,7 +45,19 @@ export class LoaderService {
         );
     }
   }
-
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.count === 0) {
+      this.show();
+    }
+    this.count++;
+    return next.handle(req).pipe(
+      finalize(() => {
+        this.count--;
+        if (this.count === 0) {
+          this.hide();
+        }
+      }));
+  }
   /**
    *  Show the splash screen
    */
@@ -60,7 +76,6 @@ export class LoaderService {
       this.player.play();
     }, 0);
   }
-
   /**
    * Hide the splash screen
    */

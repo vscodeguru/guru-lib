@@ -1,27 +1,41 @@
-<div class="action-container">
-  <div class="action sidebar-toggle">
+<!-- HEADER LEFT SIDE START -->
+<div class="action-container" fxLayout="row" fxLayoutAlign="end center">
+  <!--! TOGGLE START -->
+  <div class="action sidebar-toggle" (click)="toggleSidebar()">
     <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
   </div>
+  <!--! TOGGLE END -->
 </div>
+<!-- HEADER LEFT SIDE END -->
 
-
+<!-- HEADER RIGHT SIDE START -->
 <div class="action-container" fxLayout="row" fxLayoutAlign="end center">
+  <!--! SEARCH START -->
   <div class="action">
     <button nz-button nzType="default">
       <i nz-icon nzType="security-scan" nzTheme="twotone" [nzTwotoneColor]="'#3DCDC6'"></i>
     </button>
   </div>
+  <!--! SEARCH START -->
+
+  <!--! NOTIFICATION START -->
   <div class="action">
     <button nz-button nzType="default">
       <i nz-icon nzType="bell" nzTheme="twotone"></i>
     </button>
   </div>
+  <!--! NOTIFICATION END -->
+
+  <!--! SETTINGS START -->
   <div class="action">
     <button nz-button nzType="default">
       <i nz-icon nzType="setting" nzTheme="twotone" [nzTwotoneColor]="'#F9C45A'"></i>
     </button>
   </div>
-  <div class="action user-action" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu"
+  <!--! SETTINGS END -->
+
+  <!--! USER START -->
+  <div class="action user-action" nz-dropdown nzTrigger="click" [nzDropdownMenu]="usrMenu"
     nzOverlayClassName="user-action-menu">
     <div class="user-desc" fxLayout="column" fxLayoutAlign="center end">
       <span class="name">Prabakaran</span>
@@ -29,10 +43,11 @@
     </div>
     <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
   </div>
+  <!--! USER END -->
 </div>
+<!-- HEADER RIGHT SIDE END -->
 
-
-<nz-dropdown-menu #menu="nzDropdownMenu">
+<nz-dropdown-menu #usrMenu="nzDropdownMenu">
   <ul nz-menu>
     <li nz-menu-item>
       <i nz-icon nzType="appstore" nzTheme="twotone" nzTwotoneColor="#3DCDC6"></i>

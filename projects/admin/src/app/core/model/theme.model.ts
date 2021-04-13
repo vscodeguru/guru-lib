@@ -1,5 +1,5 @@
 export interface ITheme {
-  Sidebar: { [key: string]: IStyle };
+  sidebar: { [key: string]: IStyle };
   header: { [key: string]: IStyle };
   footer: { [key: string]: IStyle };
 }

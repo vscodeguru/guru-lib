@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import _ from 'lodash';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ITheme } from '../model';
 
 @Injectable()
 export class ThemeService {
   isLessLoaded = false;
   private _themeDefaults: ITheme = {
-    Sidebar: {
+    sidebar: {
       'layout-sider-background': { desc: 'Sidebar Backgroud', default: '#313483', ctrlType: 'color' },
+      'layout-sider-width': { desc: 'Sidebar Width', default: '250px', ctrlType: 'text' },
       'menu-item-color': { desc: 'Sidebar Item Color', default: '#f8fafc', ctrlType: 'color' },
       'menu-item-active-bg': { desc: 'Current Menu Backgroud', default: 'hsla(0,0,100,0.12)', ctrlType: 'color' },
       'menu-item-active-color': { desc: 'Current Menu Backgroud', default: '#f8fafc', ctrlType: 'color' },
@@ -48,27 +50,36 @@ export class ThemeService {
       }
     }
   };
-  private genThemeVariables(them: ITheme): { [key: string]: string } {
+  private _toggleChanged: BehaviorSubject<'left' | 'right' | undefined> = new BehaviorSubject<'left' | 'right' | undefined>(undefined);
+  public toggleChanged = this._toggleChanged.asObservable();
+
+  private _themeRegistered: BehaviorSubject<ITheme | undefined> = new BehaviorSubject<ITheme | undefined>(Object.assign({}, this._themeDefaults));
+  public get themeRegistered(): Observable<ITheme | undefined> { return this._themeRegistered.asObservable(); }
+
+  private _genThemeVariables(them: ITheme): { [key: string]: string } {
     const vars: any = {};
-    Object.keys(them?.Sidebar || {}).forEach(key => (vars[`@${key}`] = them.Sidebar[key].default));
+    Object.keys(them?.sidebar || {}).forEach(key => (vars[`@${key}`] = them.sidebar[key].default));
     Object.keys(them?.header || {}).forEach(key => (vars[`@${key}`] = them.header[key].default));
     Object.keys(them?.footer || {}).forEach(key => (vars[`@${key}`] = them.footer[key].default));
     return vars;
   }
   constructor() { }
 
-  public registerTheme(them: ITheme | undefined): Promise<void> {
+  // public get themeDefaults(): ITheme { return Object.assign({}, this._themeDefaults); }
+  public registerTheme(them: ITheme | undefined): Observable<ITheme | undefined> {
     const mergedTheme = _.merge(this._themeDefaults, them);
-    return new Promise((resolve, reject) => {
+    return new Observable((observer) => {
       try {
-        (window as any).less.modifyVars(this.genThemeVariables(mergedTheme)).then(() => { resolve(); }).catch(() => { reject(); });
+        (window as any).less.modifyVars(this._genThemeVariables(mergedTheme)).then(() => {
+          this._themeRegistered.next(mergedTheme);
+          return observer.next(mergedTheme);
+        }).catch((err: any) => { observer.error(err); });
       } catch (error) {
         console.log(error);
       }
-      resolve();
     });
-
-
   }
-  public get themeDefaults(): ITheme { return Object.assign({}, this._themeDefaults); }
+  public toggle(nav: 'left' | 'right' | undefined): void {
+    this._toggleChanged.next(nav);
+  }
 }
