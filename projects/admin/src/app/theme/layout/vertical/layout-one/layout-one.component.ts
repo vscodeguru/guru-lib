@@ -2,6 +2,8 @@ import { AfterViewInit, ChangeDetectionStrategy, ViewChild } from '@angular/core
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GuruHeaderFooterPosition, GuruSidebarLeftComponent, GuruSidebarRightComponent } from '@guru/card';
 import { ITheme, ThemeService } from 'projects/admin/src/app/core';
+import { GuruCookieService } from 'projects/admin/src/app/core/service/cookie.service';
+import { HttpService } from 'projects/admin/src/app/core/service/http.service';
 @Component({
   selector: 'vertical-layout-one',
   templateUrl: './layout-one.component.html',
@@ -17,8 +19,7 @@ export class VerticalLayoutOneComponent implements OnInit, AfterViewInit {
   data: any = {};
   @ViewChild('guruSidebarLeft') guruSidebarLeft!: GuruSidebarLeftComponent;
   @ViewChild('guruSidebarRight') guruSidebarRight!: GuruSidebarRightComponent;
-  constructor(private srvTheme: ThemeService) {
-    // tslint:disable-next-line: deprecation
+  constructor(private srvTheme: ThemeService, private http: HttpService, private cookie: GuruCookieService) {
     this.srvTheme.themeRegistered.subscribe(
       {
         next: (theme) => {
@@ -35,7 +36,6 @@ export class VerticalLayoutOneComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void { }
   ngAfterViewInit(): void {
-    // tslint:disable-next-line: deprecation
     this.srvTheme.toggleChanged.subscribe(
       {
         next: (nav) => {
@@ -47,5 +47,12 @@ export class VerticalLayoutOneComponent implements OnInit, AfterViewInit {
         }
       }
     );
+  }
+  invoke(): void {
+    this.cookie.SyncFingerPrintKey().then((data: string | undefined) => { console.log(data); });
+    this.http.get<any>('https://api.richieese.in/auth/login/vscodeguru/EEXITYzUX8hXFedL__1UqXw==/true/1').subscribe({
+      next: (data: any) => { console.log('success', data); },
+      error: (error: any) => { console.log('error', error); }
+    });
   }
 }

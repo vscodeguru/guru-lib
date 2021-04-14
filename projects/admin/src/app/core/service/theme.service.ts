@@ -53,7 +53,7 @@ export class ThemeService {
   private _toggleChanged: BehaviorSubject<'left' | 'right' | undefined> = new BehaviorSubject<'left' | 'right' | undefined>(undefined);
   public toggleChanged = this._toggleChanged.asObservable();
 
-  private _themeRegistered: BehaviorSubject<ITheme | undefined> = new BehaviorSubject<ITheme | undefined>(Object.assign({}, this._themeDefaults));
+  private _themeRegistered = new BehaviorSubject<ITheme | undefined>(Object.assign({}, this._themeDefaults));
   public get themeRegistered(): Observable<ITheme | undefined> { return this._themeRegistered.asObservable(); }
 
   private _genThemeVariables(them: ITheme): { [key: string]: string } {

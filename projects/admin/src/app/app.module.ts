@@ -21,6 +21,8 @@ import {
   LazyAssetsService,
   ThemeService
 } from './core/service';
+import { HttpService } from './core/service/http.service';
+import { GuruCookieService } from './core/service/cookie.service';
 
 
 export function StartupServiceFactory(startupService: StartupService): any {
@@ -57,7 +59,9 @@ registerLocaleData(en);
       multi: true
     },
     LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderService, multi: true },
+    HttpService,
+    GuruCookieService
   ],
   bootstrap: [AppComponent]
 })
